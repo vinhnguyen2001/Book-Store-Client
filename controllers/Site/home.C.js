@@ -12,6 +12,7 @@ var role = "0";
 var idUser = 0;
 
 const getToken = (req, res) => {
+  console.log("req cookies", req.cookies);
   const access_token = req.cookies.jwt;
 
   if (access_token) {
@@ -28,25 +29,22 @@ const getToken = (req, res) => {
 
 // [GET] /  === trang chủ ===
 router.get("/", async (req, res) => {
-  const username = getToken(req, res);
+  //   const username = getToken(req, res);
 
-  let pdsNike = await getShoesById(1, 2, 3, 4, 5, 1);
-  let pdsAdidas = await getShoesById(43, 12, 13, 14, 15, 2);
-  let pdsBitis = await getShoesById(26, 29, 30, 28, 41, 3);
+  //   let pdsNike = await getShoesById(1, 2, 3, 4, 5, 1);
+  //   let pdsAdidas = await getShoesById(43, 12, 13, 14, 15, 2);
+  //   let pdsBitis = await getShoesById(26, 29, 30, 28, 41, 3);
 
-  for (let i = 0; i < 5; i++) {
-    pdsNike[i].price = priceForShow(pdsNike[i].price);
-    pdsAdidas[i].price = priceForShow(pdsAdidas[i].price);
-    pdsBitis[i].price = priceForShow(pdsBitis[i].price);
-    pdsNike[i].image = pdsNike[i].image[0];
-    pdsAdidas[i].image = pdsAdidas[i].image[0];
-    pdsBitis[i].image = pdsBitis[i].image[0];
-  }
-
-  res.render("home", {
-    cssP: () => "Homepage/css",
-    scriptsP: () => "Homepage/script",
-  });
+  //   for (let i = 0; i < 5; i++) {
+  //     pdsNike[i].price = priceForShow(pdsNike[i].price);
+  //     pdsAdidas[i].price = priceForShow(pdsAdidas[i].price);
+  //     pdsBitis[i].price = priceForShow(pdsBitis[i].price);
+  //     pdsNike[i].image = pdsNike[i].image[0];
+  //     pdsAdidas[i].image = pdsAdidas[i].image[0];
+  //     pdsBitis[i].image = pdsBitis[i].image[0];
+  //   }
+  console.log("link /");
+  return res.render("home");
 });
 
 // // [GET] /search
@@ -129,4 +127,4 @@ router.get("/", async (req, res) => {
 //     res.status(200).json({ status: "error" });
 //   }
 // });
-// module.exports = router;
+module.exports = router;

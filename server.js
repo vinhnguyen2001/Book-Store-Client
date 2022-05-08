@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+
 const exphbs = require("express-handlebars");
-const path= require('path');
+const path = require("path");
 const methodOverride = require("method-override");
 require("dotenv").config();
+const port = process.env.PORT || 3000;
 // import cookie parser
 const cookieParser = require("cookie-parser");
 
@@ -26,7 +27,10 @@ app.use(express.static(__dirname + "/public"));
 //use handlebars
 
 // register helper functions
-var hbs = exphbs.create({});
+var hbs = exphbs.create({
+  defaultLayout: "main",
+  extname: "hbs",
+});
 hbs.handlebars.registerHelper("ifCond", function (v1, operator, v2, options) {
   switch (operator) {
     case "==":
@@ -55,7 +59,7 @@ hbs.handlebars.registerHelper("ifCond", function (v1, operator, v2, options) {
 });
 
 // view engine
-app.engine(".hbs", exphbs.engine({ defaultLayout: "layout", extname: ".hbs" }));
+app.engine("hbs", exphbs.engine);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
