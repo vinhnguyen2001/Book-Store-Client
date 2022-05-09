@@ -39,10 +39,10 @@ const disappear = (obj) => {
 }
 
 const showPurchasegoods = (obj) => {
-    var btnPurchase = obj.children[4];
+    var btnPurchase = obj.children[3];
     btnPurchase.style.display = "block";
 }
 const hidePurchasegoods = (obj) => {
-    var btnPurchase = obj.children[4];
+    var btnPurchase = obj.children[3];
     btnPurchase.style.display = "none";
 }

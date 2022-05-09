@@ -1,58 +1,75 @@
-< script type = "text/javascript" >
+const express = require("express");
+const app = express();
 
-    const btnadd = document.querySelector("#btnadd");
-const form = document.querySelector(".form__add");
+const exphbs = require("express-handlebars");
+const path = require("path");
+const methodOverride = require("method-override");
+require("dotenv").config();
 
-const updateList = function() {
-    var input = document.getElementById('file');
-    var output = document.getElementById('fileList');
+const port = process.env.PORT || 3000;
+// import cookie parser
+const cookieParser = require("cookie-parser");
 
-    var temp = "";
-    for (var i = 0; i < input.files.length; ++i) {
-        temp += `${input.files.item(i).name},`;
-    }
-    output.innerText = temp.slice(0, -1);
-};
+//body parser
+const bodyParser = require("body-parser");
 
-document.addEventListener('DOMContentLoaded', function() {
-    btnadd.onclick = () => {
-        form.submit();
-    };
+//override post method
+app.use(methodOverride("_method"));
+
+// only return middleware that parse json
+app.use(express.json());
+
+//let the system know we use shallow parsing or deep parsing
+app.use(express.urlencoded({ extended: true }));
+
+// public directory public
+app.use(express.static(__dirname + "/public"));
+
+//use handlebars
+
+// register helper functions
+var hbs = exphbs.create({
+    defaultLayout: "main",
+    extname: "hbs",
 });
 
-<
-/script>
 
 
-{
-    {# compareString create "001" } } <
-script >
-    window.onload = function() {
-        showErrorToast("Thêm sản phẩm thất bại");
-    }; <
-/script> {
-    { /compareString}}
+hbs.handlebars.registerHelper("ifCond", function(v1, operator, v2, options) {
+    switch (operator) {
+        case "==":
+            return v1 == v2 ? options.fn(this) : options.inverse(this);
+        case "===":
+            return v1 === v2 ? options.fn(this) : options.inverse(this);
+        case "!=":
+            return v1 != v2 ? options.fn(this) : options.inverse(this);
+        case "!==":
+            return v1 !== v2 ? options.fn(this) : options.inverse(this);
+        case "<":
+            return v1 < v2 ? options.fn(this) : options.inverse(this);
+        case "<=":
+            return v1 <= v2 ? options.fn(this) : options.inverse(this);
+        case ">":
+            return v1 > v2 ? options.fn(this) : options.inverse(this);
+        case ">=":
+            return v1 >= v2 ? options.fn(this) : options.inverse(this);
+        case "&&":
+            return v1 && v2 ? options.fn(this) : options.inverse(this);
+        case "||":
+            return v1 || v2 ? options.fn(this) : options.inverse(this);
+        default:
+            return options.inverse(this);
+    }
+});
 
+// view engine
+app.engine("hbs", exphbs.engine);
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
 
+// router
+app.use("/", require("./controllers/Site/home.C"));
 
-const modal = document.querySelector('.js-modal')
-const btnExit = document.querySelector('.js-exit-btn')
-const btnEdits = document.querySelectorAll('.js-edit-order')
-const btnConfirm = document.querySelector('.js-modal__confirm')
-const modalOverlay = document.querySelector('.js-modal-overlay')
-
-
-function showEdit() {
-    modal.classList.add('open')
-}
-
-function hideEdit() {
-    modal.classList.remove('open')
-}
-
-for (const btnEdit of btnEdits) {
-    btnEdit.addEventListener('click', showEdit)
-}
-
-btnConfirm.addEventListener('click', hideEdit)
-btnExit.addEventListener('click', hideEdit)
+app.listen(port, () => {
+    console.log(`Listen in port http://localhost:${port}`);
+});
