@@ -163,36 +163,6 @@
     transform: scale(1.25)
 }
 
-.product__size {
-    margin: 1.2rem 0rem;
-    cursor: pointer;
-    position: relative;
-}
-
-.product__size--back {
-    display: none;
-    position: absolute;
-}
-
-.product__size--back span {
-    cursor: pointer;
-    padding: 0.5rem;
-}
-
-.product__size--front {
-    position: absolute;
-}
-
-.product__size-item {
-    display: inline-block;
-    padding: 0.1rem;
-    font-size: 1.5rem;
-}
-
-.size-active {
-    background-color: #eee;
-}
-
 .product__name {
     border-top: 1px solid #9c9d9e;
     padding-top: 2rem;
