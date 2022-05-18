@@ -4,6 +4,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     overflow-x: hidden;
+    min-width: 100%;
 }
 
 * {
@@ -48,6 +49,7 @@ a:hover {
     position: relative;
     z-index: 99;
     padding: 15px;
+    border-bottom: 1px solid #cfcfcf;
 }
 
 .navbar-container {
