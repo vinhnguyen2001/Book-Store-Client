@@ -125,7 +125,7 @@
 
 .product {
     padding: 0 4rem;
-    min-height: 50rem;
+    min-height: 54rem;
 }
 
 .product__item {
@@ -134,6 +134,8 @@
     margin: 2rem 1.5rem;
     min-height: 45rem;
     position: relative;
+    overflow: hidden;
+    border: 0.05px solid #e7e5e5;
 }
 
 .product .slick-prev {
@@ -150,6 +152,7 @@
     overflow: hidden;
     height: 25rem;
     background-color: #eee;
+    overflow: hidden;
 }
 
 .product__item--img img {

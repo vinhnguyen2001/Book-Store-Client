@@ -10,7 +10,8 @@ router.get("/homepage", async(req, res) => {
 
         const firstPacks = await getFiveProducts(1, 2, 3, 4, 5);
 
-        // console.log("firstPack :", firstPacks);
+
+        console.log("firstPack :", firstPacks);
         for (item of firstPacks) {
 
             item.price = showingPrice(item.price);
@@ -47,7 +48,26 @@ router.get('/book/:id/detail', async(req, res) => {
         res.render("DetailBook/DetailBook", {
             title: "Home page | Blue Book Store ",
             cssCs: () => "detail/css",
-            scriptCs: () => "home/script",
+            scriptCs: () => "detail/script",
+        });
+
+    } catch (err) {
+        throw Error(err);
+    }
+});
+
+
+// GET /search
+router.get('/search', async(req, res) => {
+
+    try {
+        let bookID = req.params.id;
+
+
+        res.render("search/search", {
+            title: "Search | Blue Book Store ",
+            cssCs: () => "search/css",
+            scriptCs: () => "search/script",
         });
 
     } catch (err) {
