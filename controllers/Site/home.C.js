@@ -11,7 +11,7 @@ router.get("/homepage", async(req, res) => {
         const firstPacks = await getFiveProducts(1, 2, 3, 4, 5);
 
 
-        console.log("firstPack :", firstPacks);
+        // console.log("firstPack :", firstPacks);
         for (item of firstPacks) {
 
             item.price = showingPrice(item.price);

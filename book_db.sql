@@ -58,10 +58,10 @@ create table products (
 -- Hình ảnh
 drop table if exists images cascade;
 create table images (
-	image_id	serial,
+	image_id	int,
 	product_id	serial,
 	image_link varchar(500),
-	primary key(image_id),
+	primary key(image_id, product_id),
 	
 	constraint fk_image_product
 	foreign key (product_id) references products
@@ -99,6 +99,7 @@ create table comments (
 	account_id		serial, 
 	comment_time	timestamp, --Thời điểm bình luận
 	comment_body	varchar(255), --Nội dung comment, giới hạn 255 ký tự
+
 	primary key(comment_id),
 
 	constraint fk_comment_account
@@ -146,10 +147,10 @@ drop table if exists orders cascade;
 create table orders (
 	order_id		serial,
 	account_id			serial, --Chủ hóa đơn
-	oder_total			numeric(19, 4),
+	order_total			numeric(19, 4),
 	order_time		timestamp, --Ngày giờ tạo hóa đơn
 	order_phone		varchar(15), --Sđt, phục vụ cho việc giao hàng
-	order_a		varchar(15), --Sđt, phục vụ cho việc liên lạc
+	order_a		varchar(255), --Sđt, phục vụ cho việc liên lạc
 	order_w		varchar(15), --Sđt, phục vụ cho việc liên lạc
 	order_d		varchar(15), --Sđt, phục vụ cho việc liên lạc
 	order_p		varchar(15), --Sđt, phục vụ cho việc liên lạc
@@ -203,14 +204,43 @@ insert into products(product_name, description, category_id, author_id, publishe
 ('Sách giáo khoa 1', 'Mô tả giáo khoa 1', 3, 1, 1, 10000, 199, 1), ('Sách giáo khoa 2', 'Mô tả giáo khoa 2', 3, 1, 1, 20000, 99, 1),
 ('Sách tâm lý 1', 'Mô tả tâm lý 1', 5, 5, 4, 90000, 99, 1), ('Sách tâm lý 2', 'Mô tả tâm lý 2', 5, 5, 4, 80000, 199, 1);
 
-insert into images(product_id, image_link) values
-(1, 'https://cdn0.fahasa.com/media/catalog/product/c/o/conan-hoat-hinh-mau---ke-hanh-phap-zero-tap-2.jpg'),
-(2, 'https://cdn0.fahasa.com/media/catalog/product/b/a/bai-tho-tinh-tham-do-2.jpg'),
-(3, 'https://cdn0.fahasa.com/media/catalog/product/c/o/combo0808195.jpg'),
-(4, 'https://cdn0.fahasa.com/media/catalog/product/6/0/600boxset-vang-am-ap---kho-sach-10x14.5cm.jpg'),
-(5, 'https://cdn0.fahasa.com/media/catalog/product/n/x/nxbtre_full_09462021_024609.jpg'),
-(6, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_195509_1_10704.jpg'),
-(7, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_233238.jpg'),
-(8, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_233261.jpg'),
-(9, 'https://cdn0.fahasa.com/media/catalog/product/p/h/ph_c-h_a-ch_n-dung-k_-ph_m-t_i.jpg'),
-(10, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_208345.jpg');
+insert into images values--(product_id, image_link) values
+(1, 1, 'https://cdn0.fahasa.com/media/catalog/product/c/o/conan-hoat-hinh-mau---ke-hanh-phap-zero-tap-2.jpg'),
+(1, 2, 'https://cdn0.fahasa.com/media/catalog/product/b/a/bai-tho-tinh-tham-do-2.jpg'),
+(1, 3, 'https://cdn0.fahasa.com/media/catalog/product/c/o/combo0808195.jpg'),
+(1, 4, 'https://cdn0.fahasa.com/media/catalog/product/6/0/600boxset-vang-am-ap---kho-sach-10x14.5cm.jpg'),
+(1, 5, 'https://cdn0.fahasa.com/media/catalog/product/n/x/nxbtre_full_09462021_024609.jpg'),
+(1, 6, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_195509_1_10704.jpg'),
+(1, 7, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_233238.jpg'),
+(1, 8, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_233261.jpg'),
+(1, 9, 'https://cdn0.fahasa.com/media/catalog/product/p/h/ph_c-h_a-ch_n-dung-k_-ph_m-t_i.jpg'),
+(1, 10, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_208345.jpg');
+
+insert into accounts(username, pwd, firstname, lastname, phone, address, ward, district, province) values
+('admin', '12345678', 'Tên', 'Chủ shop', '0123456789', 'Không', 'Không', 'Không', 'Không'),
+('staff1', '12345678', 'Tên', 'Nhân viên 1', '0123456789', 'Không', 'Không', 'Không', 'Không'),
+('staff2', '12345678', 'Tên', 'Nhân viên 2', '0123456789', 'Không', 'Không', 'Không', 'Không'),
+('customer1', '12345678', 'Tên', 'Khách hàng 1', '0123456789', 'Không', 'Không', 'Không', 'Không'),
+('customer2', '12345678', 'Tên', 'Khách hàng 2', '0123456789', 'Không', 'Không', 'Không', 'Không');
+
+insert into carts(account_id) values (4), (5);
+
+insert into cart_content(cart_id, product_id, cart_quantity) values
+(1, 1, 2), (1, 4, 1),
+(2, 5, 2), (2, 8, 2);
+
+insert into orders(account_id, order_total, order_time, order_phone, order_a, order_w, order_d, order_p, order_status) values
+(4, 100000, '2022-05-26 16:00:00.0', '0123456789', 'Không', 'Không', 'Không', 'Không', 3),
+(4, 100000, '2022-05-28 08:00:00.0', '0123456789', 'Không', 'Không', 'Không', 'Không', 0),
+(5, 170000, '2022-05-25 15:00:00.0', '0123456789', 'Không', 'Không', 'Không', 'Không', 3),
+(5, 30000, '2022-05-27 16:00:00.0', '0123456789', 'Không', 'Không', 'Không', 'Không', 1);
+
+insert into order_content(order_id, product_id, order_price, order_quantity) values
+(1, 2, 40000, 1), (1, 3, 60000, 1),
+(2, 1, 20000, 1), (2, 4, 80000, 1),
+(3, 5, 50000, 1), (3, 6, 120000, 1),
+(4, 7, 10000, 1), (4, 8, 20000, 1);
+
+insert into comments(product_id, account_id, comment_time, comment_body) values
+(2, 4, '2022-05-27 16:00:00.0', 'Truyện hay quá!'), (3, 4, '2022-05-27 16:05:00.0', 'Mong ra chương mới!'),
+(6, 5, '2022-05-26 15:00:00.0', 'Sách này ảo thật đấy!'), (5, 5, '2022-05-26 15:05:00.0', 'Làm giàu không khó!');
