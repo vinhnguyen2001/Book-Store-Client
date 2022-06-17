@@ -2,7 +2,7 @@
 </div>
 <div class="container">
     <div class="display-filter">
-        <form class="form-select" action="/search" method="post">
+        <form id="form-filter" action="/search" method="post">
             <div class="select__price">
                 <label class="choose-title">Giá sản phẩm </label> 
                 <div class="select__price--content price__content">
@@ -10,8 +10,8 @@
                     <div class="range-slider">
                         <div class="progress"></div>
                         <div class="progress-shadow"></div>
-                        <input type="range" class="range-min" min="0" max="2000000" value="0" step="5000">
-                        <input type="range" class="range-max" min="0" max="2000000" value="2000000" step="5000">
+                        <input type="range"  class="range-min" min="0" max="2000000" value="0" step="5000">
+                        <input type="range"  class="range-max" min="0" max="2000000" value="2000000" step="5000">
                           
                     </div>
                     <div class="range-number">
@@ -23,20 +23,23 @@
                             <input type="text" value="2.000.000 đ"disabled>
                         </div>
                     </div>
+
+                    {{!-- <input type="number" style="display:none" id="range-slider-min-input">
+                    <input type="number" style="display:none" id ="range-slider-max-input"> --}}
                 </div>
             </div>
             <div class="select__brand">
                <label class="choose-title" >SẮP XẾP </label> 
                <select type="text" class="form__add--brand" id="brand-filter" name="filter" style="width:100%;padding-left:1rem">
-                    <option value="shoes_id"
-                    {{#compareString filter "shoes_id"}} selected{{/compareString}}
+                    <option value="PD.product_id DESC"
+                    {{#compareString filter "PD.product_id DESC"}} selected{{/compareString}}
                     >Mới nhất</option>
-                    <option value="shoes_name"
-                      {{#compareString filter "shoes_name"}} selected{{/compareString}}>Tên A - Z</option>
+                    <option value="PD.product_id DESC"
+                      {{#compareString filter "PD.product_id DESC"}} selected{{/compareString}}>Tên A - Z</option>
                     <option value="price ASC"
-                      {{#compareString filter "price ASC"}} selected{{/compareString}}>Giá tiền tăng dần</option>
+                      {{#compareString filter "PD.price ASC"}} selected{{/compareString}}>Giá tiền tăng dần</option>
                     <option value="price DESC"
-                      {{#compareString filter "price DESC"}} selected{{/compareString}}>Giá tiền giảm dần</option>
+                      {{#compareString filter "PD.price DESC"}} selected{{/compareString}}>Giá tiền giảm dần</option>
                 </select>
             </div>
             <div class="btn-select"><button type="submit" class"btn">Lọc</button></div>
@@ -46,37 +49,26 @@
     <div class="display-product">
      
         <div class="product">
-             {{#each Packages}}
+            {{#each packs}}
             <div class="product__item" onmouseover="showPurchasegoods(this)" onmouseout="hidePurchasegoods(this)">
                 <div class="product__item--img img--bitis">
-                    <img src="../../image/{{this.image}}" alt="photo1" width="100%">
-                </div>
-                
-                <div class="product__size" onmouseover="turnUp(this)" onmouseout="disappear(this)">
-                    <div class="product__size--front">
-                        <span class="product__size-item" >+{{size.length}} size</span>
-                    </div>
-                    <div class="product__size--back">
-                        {{#each size}}
-                            <span class="product__size-item"onclick="chooseSize(this)">{{this}}</span>
-                        {{/each}}
-                    </div>
+                    <img src="{{this.image_link}}" alt="photo1" width="100%">
                 </div>
                 <div class="product__name">
-                    <a href="/shoes/{{this.shoes_id}}/detail">
-                        <p class="p-name">{{this.shoes_name}}</p>
+                    <a href="/book/{{this.product_id}}/detail">
+                        <p class="p-name">{{this.product_name}}</p>
                     </a>
                 </div>
+    
                 <div class="product__price">
                     {{this.price}} đ
                 </div>
-
                 <div class="product__buy btn" onclick="addItem(this)">
                     <button>
-                        Thêm vào giỏ hàng
+                        Thêm vào giỏ hàng 
                     </button>
                 </div>
-                <div class="shoe_id">{{this.shoes_id}}</div>
+                <div class="product_id" style="display:none">{{this.product_id}}</div>
             </div>
             {{/each}}
              {{#compareInt flag 0}}
@@ -91,22 +83,4 @@
         </div>
     </div>
 
-    {{!-- <div class="form-hidden">
-        <form class="form-hidden"action="/add-item" method="post"></form>
-    </div> --}}
 </div>
-
-<script>
-    const slideValue = document.querySelector("#span-value");
-    const inputSlider = document.querySelector("#inputSlider");
-
-    inputSlider.oninput = (() => {
-        let value = inputSlider.value;
-        slideValue.textContent = value;
-        slideValue.style.left = (value / 2) + "%";
-        slideValue.classList.add("show");
-    });
-    // inputSlider.onblur = (() => {
-    //     slideValue.classList.remove("show");
-    // });
-</script>

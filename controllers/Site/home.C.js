@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { getFiveProducts, showingPrice, getDetailInforProduct } = require("../../models/product/products.M")
+const { getFiveProducts, showingPrice, getDetailInforProduct, getProductsByName } = require("../../models/product/products.M")
 
 
 
@@ -66,17 +66,59 @@ router.get('/book/:id/detail', async(req, res) => {
 router.get('/search', async(req, res) => {
 
     try {
-        let bookID = req.params.id;
+        let searchValue = req.query.search;
+        const data = await getProductsByName({ search: searchValue });
+        let flag = 1;
 
+        if (data.length == 0) {
+            flag = 0;
+        }
+
+        for (elm of data) {
+            elm.price = showingPrice(elm.price);
+        }
         res.render("search/search", {
             title: "Search | Blue Book Store ",
             cssCs: () => "search/css",
             scriptCs: () => "search/script",
+            search_key: searchValue,
+            packs: data,
+            flag,
         });
 
     } catch (err) {
+        console.log(err)
         throw Error(err);
     }
 });
+
+
+// POST /search
+
+router.post('/search', async(req, res) => {
+
+    try {
+        console.log("body:", req.body)
+
+        const { search, lowerPrice, upperPrice, filter } = req.body;
+        let strQueryFilter = `ORDER BY ${filter}`;
+        let strQueryPrice = `AND PD.price BETWEEN ${lowerPrice} AND ${upperPrice}`;
+
+        const data = await getProductsByName({ search: search, price: strQueryPrice, filter: strQueryFilter });
+
+        if (data.length > 0) {
+            for (elm of data) {
+                elm.price = showingPrice(elm.price);
+            }
+        }
+        res.status(200).json({ data });
+
+
+    } catch (err) {
+        console.log(err)
+        throw Error(err);
+    }
+});
+
 
 module.exports = router;

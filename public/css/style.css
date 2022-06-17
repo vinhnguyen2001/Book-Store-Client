@@ -224,6 +224,10 @@
     box-shadow: #eeecec 0px 0px 5px 4px;
 }
 
+.product_id {
+    display: none;
+}
+
 .img--bitis {
     padding: 25px;
 }

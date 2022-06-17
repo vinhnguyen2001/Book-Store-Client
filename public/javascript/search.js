@@ -1,21 +1,32 @@
-const formSelect = document.querySelector('.form-select');
-const checkItem = document.querySelectorAll('.form__check--item');
+const formSelect = document.querySelector('#form-filter');
+// const checkItem = document.querySelectorAll('.form__check--item');
 const product = document.querySelector('.product')
+    // const minInputPrice = document.querySelector("#range-slider-min-input");
+    // const maxInputPrice = document.querySelector("#range-slider-max-input");
+const inputValue = document.querySelectorAll(".numberVal input");
+const filterValue = document.querySelector("#brand-filter");
+
+console.log("value:", filterValue, filterValue.value);
 
 formSelect.onsubmit = async(e) => {
     e.preventDefault();
     const search = document.querySelector("#search").value.trim().toLowerCase();
-    const check_active = document.querySelectorAll('.check-active');
-    const check_range = document.querySelector('#inputSlider');
-    const price = check_range.value;
-    var arrSizes = [];
-    for (elm of check_active) {
-        arrSizes.push(parseInt(elm.innerText));
-
-    }
 
 
-    const data = { search, arrSizes, price };
+    // const check_active = document.querySelectorAll('.check-active');
+    // const check_range = document.querySelector('#inputSlider');
+    const lowerPrice = parseInt(range[0].value);;
+    const upperPrice = parseInt(range[1].value);;
+    // var arrSizes = [];
+    // for (elm of check_active) {
+    //     arrSizes.push(parseInt(elm.innerText));
+
+    // }
+
+
+
+
+    const data = { search, lowerPrice, upperPrice, filter: filterValue.value };
     const options = {
         method: 'POST',
         headers: {
@@ -28,9 +39,9 @@ formSelect.onsubmit = async(e) => {
     try {
 
         const resJson = await fetch('/search', options);
-        const { items } = await resJson.json();
+        const { data } = await resJson.json();
         product.innerHTML = "";
-        if (items.length == 0) {
+        if (data.length == 0) {
             $(".product").append(` 
             <div id="notfound">
             <i class="fa-solid fa-triangle-exclamation"></i>
@@ -40,51 +51,42 @@ formSelect.onsubmit = async(e) => {
             `)
             return;
         }
-        for (let elm of items) {
+        for (let elm of data) {
             $(".product").append(
                 `
-            <div class="product__item" onmouseover="showPurchasegoods(this)" onmouseout="hidePurchasegoods(this)">
+                <div class="product__item" onmouseover="showPurchasegoods(this)" onmouseout="hidePurchasegoods(this)">
                 <div class="product__item--img img--bitis">
-                    <img src="../../image/${elm.image}" alt="photo1" width="100%">
-                </div>
-                
-                <div class="product__size" onmouseover="turnUp(this)" onmouseout="disappear(this)">
-                    <div class="product__size--front">
-                        <span class="product__size-item">+${elm.size.length} size</span>
-                    </div>
-                    <div class="product__size--back">
-                   
-                    </div>
+                    <img src="${elm.image_link}" alt="photo1" width="100%">
                 </div>
                 <div class="product__name">
-                    <a href="/shoes/${elm.shoes_id}/detail">
-                        <p class="p-name">${elm.shoes_name}</p>
+                    <a href="/book/${elm.product_id}/detail">
+                        <p class="p-name">${elm.product_name}</p>
                     </a>
                 </div>
+    
                 <div class="product__price">
-                ${elm.price} đ
+                    ${elm.price} đ
                 </div>
-
                 <div class="product__buy btn" onclick="addItem(this)">
                     <button>
-                        Thêm vào giỏ hàng
+                        Thêm vào giỏ hàng 
                     </button>
                 </div>
-                <div class="shoe_id">${elm.shoes_id}</div>
+                <div class="product_id" style="display:none">${elm.product_id}</div>
             </div>
             `
             )
 
         }
-        $('.product__size--back').empty();
-        const backSide = document.querySelectorAll(".product__size--back");
-        let index = 0;
-        for (elm of items) {
-            for (value of elm.size) {
-                backSide[index].innerHTML += ` <span class="product__size-item" onclick="chooseSize(this)">${value}</span>`;
-            }
-            index++;
-        }
+        // $('.product__size--back').empty();
+        // const backSide = document.querySelectorAll(".product__size--back");
+        // let index = 0;
+        // for (elm of items) {
+        //     for (value of elm.size) {
+        //         backSide[index].innerHTML += ` <span class="product__size-item" onclick="chooseSize(this)">${value}</span>`;
+        //     }
+        //     index++;
+        // }
     } catch (e) {
         console.error("error search: ", e);
     }
@@ -119,11 +121,11 @@ const disappear = (obj) => {
 }
 
 const showPurchasegoods = (obj) => {
-    var btnPurchase = obj.children[4];
+    var btnPurchase = obj.children[3];
     btnPurchase.style.display = "block";
 }
 const hidePurchasegoods = (obj) => {
-    var btnPurchase = obj.children[4];
+    var btnPurchase = obj.children[3];
     btnPurchase.style.display = "none";
 }
 
@@ -131,7 +133,6 @@ const range = document.querySelectorAll('.range-slider input');
 const progress = document.querySelector(".range-slider .progress");
 let gap = 50000;
 
-const inputValue = document.querySelectorAll(".numberVal input");
 
 var showingPrice = (price) => {
 
@@ -161,12 +162,8 @@ range.forEach(input => {
             progress.style.left = (minrange / range[0].max) * 100 + '%';
             progress.style.right = 100 - (maxrange / range[1].max) * 100 + '%';
 
-
             inputValue[0].value = showingPrice(minrange) + " đ";
             inputValue[1].value = showingPrice(maxrange) + " đ";
-
         }
-
-
     })
 })
