@@ -1,5 +1,6 @@
-const fullName = document.getElementById("fullName");
-const userName = document.getElementById("userName");
+const firstName = document.getElementById("firstName");
+const lastName = document.getElementById("lastName");
+// const userName = document.getElementById("userName");
 const password = document.getElementById("password");
 const phoneNumber = document.getElementById("phone");
 const form = document.querySelector('.form');
@@ -10,11 +11,12 @@ form.onsubmit = async(e) => {
 
     e.preventDefault();
     const errs = checkInputs();
-    const uservalue = userName.value.trim();
+    const firstNameValue = firstName.value.trim();
+    const lastNameValue = lastName.value.trim();
     const passvalue = password.value.trim();
     const phonevalue = phoneNumber.value.trim();
-    const fullnamevalue = fullName.value.trim();
-    const data = { uservalue, fullnamevalue, phonevalue, passvalue, errs };
+    // const fullnamevalue = fullName.value.trim();
+    const data = { firstNameValue, lastNameValue, phonevalue, passvalue, errs };
 
 
     const options = {
@@ -26,21 +28,21 @@ form.onsubmit = async(e) => {
         body: JSON.stringify(data),
     }
     try {
-        const result = await fetch('/dangki', options);
+        const result = await fetch('/auth/logup', options);
         const resData = await result.json();
 
         // console.log("resdata", resData);
         // lấy error về và thông báo lỗi
         if (!resData.status) {
-            if (resData.userErr != '') {
-                setErrorFor(userName, resData.userErr);
+            if (resData.firstNameErr != '') {
+                setErrorFor(firstName, resData.firstNameErr);
             } else {
-                setSuccessFor(userName);
+                setSuccessFor(firstName);
             }
-            if (resData.nameErr != '') {
-                setErrorFor(fullName, resData.nameErr);
+            if (resData.lastNameErr != '') {
+                setErrorFor(lastName, resData.lastNameErr);
             } else {
-                setSuccessFor(fullName);
+                setSuccessFor(lastName);
             }
             if (resData.phoneErr != '') {
                 setErrorFor(phoneNumber, resData.phoneErr);
@@ -54,7 +56,7 @@ form.onsubmit = async(e) => {
             }
         } else {
 
-            location.assign('/');
+            location.assign('/homepage');
         }
 
     } catch (err) {
@@ -66,37 +68,15 @@ form.onsubmit = async(e) => {
 function checkInputs() {
 
     // trim to remove the whitespaces
-    const fullNameValue = fullName.value.trim();
-    const userNameValue = userName.value.trim();
     const phoneNumberValue = phoneNumber.value.trim();
-    const passwordValue = password.value.trim();
+    errs = { phoneErr: '' };
 
-    errs = { userErr: '', nameErr: '', phoneErr: '' };
-    // check validation fullname
-    if (fullNameValue === '') {
-        errs.nameErr = "Họ tên không được để trống";
-
-    } else if (!checkCapitalizeTheFirstLetterOfEachWord(fullNameValue)) {
-
-        errs.nameErr = "Họ tên phải viết hoa chữ đầu";
-
-    }
 
     // check validation phoneNumber
-
     if (phoneNumberValue === '') {
         errs.phoneErr = "Số điện thoại không được để trống";
     } else {
         errs.phoneErr = isPhoneNumber(phoneNumberValue);
-    }
-
-
-    // check validation userName
-    if (userNameValue === '') {
-
-        errs.userErr = "Tên đăng nhập không được để trống";
-    } else {
-        errs.userErr = isUserName(userNameValue);
     }
 
     return errs;

@@ -70,6 +70,7 @@ a:hover {
     color: #000000;
     font-weight: 700;
     text-decoration: none;
+    margin-left: -1.5rem;
 }
 
 .header .item-center {
@@ -196,6 +197,7 @@ img {
     .header .item-right>.nav-account:hover .sub-menu {
         visibility: visible;
         opacity: 1;
+        /* opacity: 0; */
     }
 }
 

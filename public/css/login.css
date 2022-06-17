@@ -7,8 +7,8 @@
     font-size: 1.5rem;
     margin-left: 30%;
     margin-top: 7rem;
-    margin-bottom: 15rem;
-    height: 70vh;
+    margin-bottom: 5rem;
+    height: 95vh;
     z-index: 3;
 }
 
@@ -129,4 +129,15 @@
 .form button:hover {
     background: #176fd3;
     opacity: 0.95;
+}
+
+.form button:active {
+    background: #176fd3;
+    opacity: 0.95;
+    transform: translateY(0.15rem);
+}
+
+.form-fullname {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

@@ -126,3 +126,47 @@ const hidePurchasegoods = (obj) => {
     var btnPurchase = obj.children[4];
     btnPurchase.style.display = "none";
 }
+
+const range = document.querySelectorAll('.range-slider input');
+const progress = document.querySelector(".range-slider .progress");
+let gap = 50000;
+
+const inputValue = document.querySelectorAll(".numberVal input");
+
+var showingPrice = (price) => {
+
+    price = parseInt(price);
+    return String(price).replace(/(.)(?=(\d{3})+$)/g, '$1.');
+}
+
+range.forEach(input => {
+    input.addEventListener('input', e => {
+        let minrange = parseInt(range[0].value);
+        let maxrange = parseInt(range[1].value);
+
+        if (maxrange - minrange < gap) {
+
+            if (e.target.className === "range-min") {
+                range[0].value = maxrange - gap;
+                range[0].style.zIndex = "2";
+
+            } else {
+                range[1].value = minrange + gap;
+                range[1].style.zIndex = "2";
+
+            }
+            progress.style.left = (minrange / range[0].max) * 100 + '%';
+            progress.style.right = 100 - (maxrange / range[1].max) * 100 + '%';
+        } else {
+            progress.style.left = (minrange / range[0].max) * 100 + '%';
+            progress.style.right = 100 - (maxrange / range[1].max) * 100 + '%';
+
+
+            inputValue[0].value = showingPrice(minrange) + " đ";
+            inputValue[1].value = showingPrice(maxrange) + " đ";
+
+        }
+
+
+    })
+})

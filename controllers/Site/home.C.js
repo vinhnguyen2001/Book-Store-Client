@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const { getFiveProducts, showingPrice } = require("../../models/product/products.M")
+const { getFiveProducts, showingPrice, getDetailInforProduct } = require("../../models/product/products.M")
+
+
 
 // GET /homepage
 router.get("/homepage", async(req, res) => {
@@ -42,13 +44,16 @@ router.get("/homepage", async(req, res) => {
 router.get('/book/:id/detail', async(req, res) => {
 
     try {
-        let bookID = req.params.id;
+        const { id } = req.params;
+        const productData = await getDetailInforProduct(id);
+        // console.log(productData)
 
 
         res.render("DetailBook/DetailBook", {
             title: "Home page | Blue Book Store ",
             cssCs: () => "detail/css",
             scriptCs: () => "detail/script",
+            pack: productData[0],
         });
 
     } catch (err) {
@@ -62,7 +67,6 @@ router.get('/search', async(req, res) => {
 
     try {
         let bookID = req.params.id;
-
 
         res.render("search/search", {
             title: "Search | Blue Book Store ",

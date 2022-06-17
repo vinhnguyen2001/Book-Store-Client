@@ -1,0 +1,40 @@
+<div class="container">
+
+    <form id="form" class="form" action="/auth/logup" method="POST">
+        <div class="header--title">
+            <h2> Đăng kí </h2>
+        </div>
+       
+        <div class="form-fullname">
+            <div class="form-item">
+                <label for="firstName">Họ</label>
+                <input type="text" placeholder="Nguyễn" name="firstName" id="firstName" />
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-item">
+                <label for="lastName">Tên</label>
+                <input type="text" placeholder="Vinh" name="lastName" id="lastName" />
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+        </div>
+        <div class="form-item">
+            <label for="phone">Số điện thoại</label>
+            <input type="text" placeholder="0337430923" value ="0337430895" name ="phone" id="phone">
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>Error message</small>
+        </div>
+        <div class="form-item">
+            <label for="password">Mật khẩu</label>
+            <input type="password" placeholder="12345678" value ="0337430895" name="password" id="password">
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>Error message</small>
+        </div>
+        <button type="submit">Đăng Kí</button>
+    </form>
+</div>

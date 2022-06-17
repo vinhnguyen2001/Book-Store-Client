@@ -1,30 +1,33 @@
 <div id="modal-mgs">
 </div>
 <div class="container">
-    <div class="select-range">
+    <div class="display-filter">
         <form class="form-select" action="/search" method="post">
-            <div class="form-range">
-                <label >Giá sản phẩm </label> 
-                <small>(ngàn đồng)</small>
-                <div class="range">
-                    <div class="sliderValue">
-                        <span id="span-value">0</span>
+            <div class="select__price">
+                <label class="choose-title">Giá sản phẩm </label> 
+                <div class="select__price--content price__content">
+
+                    <div class="range-slider">
+                        <div class="progress"></div>
+                        <div class="progress-shadow"></div>
+                        <input type="range" class="range-min" min="0" max="2000000" value="0" step="5000">
+                        <input type="range" class="range-max" min="0" max="2000000" value="2000000" step="5000">
+                          
                     </div>
-                    <div class="field">
-                        <div class="value left">
-                            0</div>
-                        <input type="range" min="0" max="20000" value="0" steps="50" id="inputSlider">
-                        <div class="value right">
-                            20000
+                    <div class="range-number">
+                        <div class="min-value numberVal">
+                            <input type="text" value="0 đ" disabled>
+                        </div>
+                        - &nbsp;
+                        <div class="max-value numberVal">
+                            <input type="text" value="2.000.000 đ"disabled>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <label class="choose-title" >SẮP XẾP </label> 
-            
             <div class="select__brand">
-               <select type="text" class="form__add--brand" id="filter" name="filter" style="width:100%;padding-left:1rem">
+               <label class="choose-title" >SẮP XẾP </label> 
+               <select type="text" class="form__add--brand" id="brand-filter" name="filter" style="width:100%;padding-left:1rem">
                     <option value="shoes_id"
                     {{#compareString filter "shoes_id"}} selected{{/compareString}}
                     >Mới nhất</option>
@@ -86,18 +89,6 @@
             </div>
         {{/compareInt}}
         </div>
-       
-        {{!-- <div class="page example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item ">
-                    <a class="page-link" href="/nike?page=">Trước</a>
-                </li>
-                <li class="page-item"><a class="page-link"></a></li>
-                <li class="page-item">
-                    <a class="page-link" href="/nike?page=">Tiếp theo</a>
-                </li>
-            </ul>
-        </div> --}}
     </div>
 
     {{!-- <div class="form-hidden">
