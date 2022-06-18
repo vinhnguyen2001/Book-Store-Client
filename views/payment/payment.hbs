@@ -1,0 +1,130 @@
+<div id="modal-mgs">
+</div>
+ <div class="form-input container"> 
+        <div class="form-select">
+            <form action="/payment/information-order" method="post">
+                <div class="payment-route">
+                    <a href="/shopping-cart">Giỏ hàng</a> >
+                    <a href="/payment/information-order">Thông tin giao hàng</a> >
+                    <a href="/payment/method">Phương thức thanh toán</a>
+                </div>
+                
+                <div class="form-group form-item form-fullname">
+                
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Họ</label>
+                        <input name="firstname" type="text" class="form-control" placeholder="Nguyễn" value="{{account.firstname}}">
+                    </div>
+                    <div class="form-group form-number">
+                        <label for="exampleInputEmail1">Tên</label>
+                        <input name="lastname" type="text" class="form-control" placeholder="Vinh" value="{{account.lastname}}">
+                    </div>
+                </div>
+                <div class="form-info form-item">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input name="email" type="email" class="form-control" placeholder="nguyenvana@gmail.com">
+                    </div>
+                    <div class="form-group form-number">
+                        <label for="exampleInputEmail1">Số điện thoại</label>
+                        <input name="phone" type="text" class="form-control" placeholder="0337430983" value="{{account.phone}}">
+                    </div>
+                </div>
+                <div class="form-group form-item">
+                    <label for="exampleInputEmail1">Địa chỉ</label>
+                    <input type="text" name="address" class="form-control" placeholder="KTX khu B - Đông Hòa Dĩ An" 
+                    value="{{account.address}}">
+                </div>
+                <div class="form-select-add form-item">
+                    <div class="form-group">
+                        <label for="province ">Tỉnh - thành phố</label>
+                        <select name="province" class="form-select form-province" >
+                          <option select="selected ">
+                            {{#if account}}
+                                {{account.province}}
+                            {{else}}
+                                Rỗng 
+                            {{/if}}
+                          </option>
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label for="district ">Thành phố - huyện</label>
+                        <select name="district" class="form-select form-district ">
+                            <option> 
+                                {{#if account.district}}
+                                {{account.district}}
+                                {{else}}
+                                Rỗng
+                                {{/if}}
+                                </option>
+                        </select>
+                    </div>
+                    <div class="form-group form-wards ">
+                        <label for="ward ">Phường - xã</label>
+                        <select name="ward" class="form-select form-ward ">
+                            <option>
+                                {{#if account.ward}}
+                                {{account.ward}}
+                                {{else}}
+                                Rỗng
+                                {{/if}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-total">
+                    <div class="total-money">
+                        Tổng tiền: <span style="color:#fa3d4d">
+                            <input name ="total" value="{{sumPrice}}" style="display:none" >{{sumPrice}}</span> VND
+                    </div>
+                    <div class="checkout-btn">
+                        <button type="submit" id="btn-payment">
+                        Hoàn thành
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-small">
+             {{#each packs}}
+            <div class="form-small-item">
+                <div class="form-img">
+                    <img src="{{this.image_link}}" alt="photo">
+                </div>
+                <div class="form-name">
+                   <h6 style="text-transform:capitalize">{{this.product_name}}</h6>
+                   <h6>Số lượng: <span>{{this.cart_quantity}}</span></h6> 
+                </div>
+            </div>
+             {{/each}}
+        </div>
+</div>
+{{#compareString error "001"}}
+  <script>
+     window.addEventListener("load",function(){
+        showErrorModal("Địa chỉ không phù hợp");
+    });
+  </script>
+{{/compareString}}
+{{#compareString error "002"}}
+  <script>
+    window.addEventListener("load",function(){
+        showErrorModal("Số điện thoại không đúng");
+    });
+  </script>
+{{/compareString}}
+{{#compareString error "003"}}
+  <script>
+     window.addEventListener("load",function(){
+        showErrorModal("Họ tên không phù hợp");
+    });
+  </script>
+{{/compareString}}
+{{#compareString error "004"}}
+  <script>
+     window.addEventListener("load",function(){
+        showErrorModal("Đặt hàng không thành công. Vui lòng thử lại");
+    });
+  </script>
+{{/compareString}}

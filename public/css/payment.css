@@ -20,7 +20,7 @@ html {
     display: grid;
     grid-template-columns: 5fr 3fr;
     font-size: 1.6rem;
-    padding: 0 5rem;
+    padding: 0 7rem;
 }
 
 .form-item {
@@ -31,6 +31,10 @@ html {
     padding-top: 5rem;
     height: 4rem;
     margin-bottom: 5rem;
+}
+
+.form-group {
+    min-width: 100%;
 }
 
 .payment-route a {
@@ -47,9 +51,15 @@ html {
     color: #4463eb;
 }
 
+.form-fullname {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4rem;
+}
+
 .form-info {
     display: grid;
-    grid-template-columns: 4fr 2fr;
+    grid-template-columns: 2fr 2fr;
     column-gap: 4rem;
 }
 
@@ -75,14 +85,14 @@ html {
 }
 
 .form-small {
-    margin-top: 13rem;
+    margin-top: 13.5rem;
     margin-left: 5rem;
     height: 51vh;
     overflow-y: scroll;
 }
 
 .form-small::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
     height: 12px;
 }
 
@@ -110,11 +120,13 @@ html {
 }
 
 .form-img {
-    width: 80%;
+    width: 70%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 6px;
     overflow: hidden;
     background-color: rgb(255, 255, 255);
+    background-color: #4463eb;
+    border: 0.15px solid #cfcfcf;
 }
 
 .form-img img {

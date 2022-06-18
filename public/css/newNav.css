@@ -106,7 +106,11 @@ a:hover {
 
 .header .item-mid .form-search-icon {
     font-size: 15px;
-    padding: 0.4rem 1.5rem;
+    padding: 0.35rem 1.5rem;
+}
+
+.header .item-mid .form-search-icon:active {
+    transform: translateY(1.00005px);
 }
 
 .header .item-mid button {
@@ -249,7 +253,7 @@ img {
 }
 
 .list-item {
-    padding: 20px 30px;
+    padding: 20px 10px;
 }
 
 .list-item {
@@ -261,6 +265,20 @@ img {
 .header .item-right a:hover,
 .header .menu>ul>li:hover>a {
     color: #ed830b;
+}
+
+.item-right>.nav-account>.sub-menu {
+    width: 220px;
+}
+
+.list-option ul>li>a {
+    padding: 0.4rem 0.25rem;
+}
+
+.header .item-mid input {
+    position: relative;
+    font-size: 15px;
+    padding: 1rem 0.5rem;
 }
 
 

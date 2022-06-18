@@ -1,3 +1,7 @@
+.container {
+    margin-bottom: 5rem !important;
+}
+
 .content-table {
     height: auto;
     margin-bottom: 10rem;
@@ -45,6 +49,10 @@
     /* transform: translateY(-0.4rem); */
     text-align: center;
     width: 8rem;
+}
+
+.cart__input {
+    text-align: center;
 }
 
 .btn-detail a {

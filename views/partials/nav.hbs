@@ -67,13 +67,22 @@
                     <div class="nav-account">
                         <a><i class="fa-regular fa-user"></i></a>
                         <div class="sub-menu">
-                            <div class="list-item">
+                            <div class="list-item list-option">
                                 <ul>
+                                    {{#if user}}                                   
+                                    <li><a href="/account/update">
+                                    
+                                    <img src="https://www.coolmate.me/images/header/icon-account.svg" style="width:15px; display:inline-block; margin-top:-5px; margin-right:5px">Thông tin tài khoản</a></li>
+                                    <li><a href="/list-order"><img src="https://www.coolmate.me/images/header/icon-order.svg" alt="danhsach-icon" style="width:15px; display:inline-block; margin-top:-5px; margin-right:5px">Danh sách đơn hàng</a></li>
+                                    
+                                     <li><a href="/auth/logout"><img src="https://www.coolmate.me/images/header/icon-logout.svg" alt="danhsach-icon" style="width:15px; display:inline-block; margin-top:-5px; margin-right:5px">Đăng xuất</a></li>
+                                    
+                                    {{else}}
                                     <li><a href="/auth/login">Đăng nhập</a></li>
                                     <li>
                                         <a href="/auth/logup">Đăng kí</a>
                                     </li>
-                                    <li><a href="/auth/logout">Đăng xuất</a></li>
+                                    {{/if}}
                                 </ul>
                             </div>
                         </div>

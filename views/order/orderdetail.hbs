@@ -1,0 +1,60 @@
+<div id="modal-mgs">
+</div>
+
+<div class=" container">
+    
+    <div class="title section-title">
+        <h3 class="section-bestseller title secondary-title">CHI TIẾT ĐƠN HÀNG #{{order_id}}</h3>
+    </div>
+
+    <div class="content-table table-hover">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th class="label" scope="col"></th>
+                    <th class="label item__name" scope="col">Tên sản phẩm</th>
+                    <th class="label label-price" scope="col">Giá thành</th>
+                    <th class="label" scope="col">Số lượng</th>
+                    <th class="label" scope="col">Còn hàng</th>
+                </tr>
+            </thead>
+
+            <tbody>
+              
+                {{#each packs}}
+                <tr>
+                    <td class="first" scope="row">
+                    <div class="cart-img"> <img src="{{this.image_link}}"  alt="photo1" width="100%"></div>
+                    </td>
+                    <td class="cart__name-item "><a href="/book/{{product_id}}/detail">{{this.product_name}}</a></td>
+                    <td class="cart__price"><span id="display-price" >{{this.price}}</span> đ
+                      <input  style="display:none" type="number" value="{{this.prevprice}}" name="price" id="price-value">
+                    </td>
+                    <td class="cart__input" >
+                      <input name="quantity" onchange="checkValidation(this,{{this.order_quantity}},this.parentElement)"class="cart__input--item cart--quantity" type="number" min="1" max="{{this.stock}}" step="1" value="{{this.order_quantity}}" disabled>
+                      </input>
+                    </td>
+                    <td class="cart__stock">
+                      <p>{{this.stock}}</p> sản phẩm 
+                    </td>
+                    <td class="price" style="display:none">{{this.prePrice}}</td>
+                    <div class="cart-content-id" style="display:none">{{this.cart_content_id}}</div>
+                 
+                </tr>
+                {{/each}}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>Tổng giá tiền:</td>
+                <td id="display-total-price"><span
+                id="sumPrice">
+                {{sumPrice}}
+                </span>
+                   đ
+                </td>
+              </tr>
+            </tfoot>
+        </table>
+  </div>
+   
+</div>

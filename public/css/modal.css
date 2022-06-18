@@ -17,6 +17,7 @@ html {
     left: 50%;
     transform: translateX(-50%);
     z-index: 999999;
+    transition: all 1.5s ease;
 }
 
 .modal-active {
@@ -28,7 +29,7 @@ html {
 
 .modal-mgs {
     width: 40rem;
-    height: 12rem;
+    height: 13rem;
     padding: 5px;
     margin: calc((100% - 40rem) / 2);
     margin-top: 0;

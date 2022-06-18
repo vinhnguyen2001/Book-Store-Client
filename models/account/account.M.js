@@ -13,7 +13,7 @@ exports.phoneIsExist = async(phone) => {
 
 exports.addNewAccount = async(firstName, lastName, phone, password) => {
 
-    console.log(firstName, lastName, phone, password)
+    // console.log(firstName, lastName, phone, password)
     const { rows } = await db.query(
         `INSERT INTO  ${accounts}("pwd","firstname", "lastname", "phone","role_id","account_status") 
          VALUES  ('${password}', '${firstName}','${lastName}','${phone}',2,1)
@@ -21,5 +21,16 @@ exports.addNewAccount = async(firstName, lastName, phone, password) => {
         `
     )
     console.log(rows)
+    return rows;
+}
+
+exports.getAccountById = async(account_id) => {
+
+    const { rows } = await db.query(`
+    SELECT *
+    FROM  ${accounts}
+    WHERE "account_id" ='${account_id}'  
+    `);
+
     return rows;
 }

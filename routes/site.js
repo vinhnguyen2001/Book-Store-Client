@@ -1,14 +1,8 @@
 const express = require('express');
-
 const router = express.Router();
+const { authenToken, authenTokenResApi, checkCurrentUser, checkUserIsLogin } = require("../middlewares/authentication.MW");
 
-
-
-router.use('/', require('../controllers/site/home.C'));
+router.use('/', checkCurrentUser, require('../controllers/site/home.C'));
 router.use('/search', require('../controllers/site/home.C'));
-router.use('/auth/logup', require('../controllers/auth/logup.C'));
-router.use('/auth/login', require('../controllers/auth/login.C'));
-
-
 
 module.exports = router;

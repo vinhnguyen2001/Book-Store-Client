@@ -1,19 +1,22 @@
 const addItem = async(obj) => {
     const parentElement = obj.parentNode;
-    const idShoe = parentElement.children[5];
-    const sizeShoe = parentElement.querySelector('.size-item-active');
+    const idBook = parentElement.children[4].innerText;
+
+    // console.log("parent:", parentElement, idBook)
+
+    // const sizeShoe = parentElement.querySelector('.size-item-active');
     // console.log(parentElement.children);
     // console.log(sizeShoe);
 
-    if (!sizeShoe) {
-        alert("Bạn vui lòng chọn kích thước");
-        return;
-    }
+    // if (!sizeShoe) {
+    //     alert("Bạn vui lòng chọn kích thước");
+    //     return;
+    // }
     const hostOrigin = window.location.origin;
     const pathname = window.location.pathname;
 
     try {
-        const data = { size: sizeShoe.innerText, id: idShoe.innerText };
+        const data = { id: idBook };
         console.log(data);
         const options = {
             method: 'POST',
@@ -25,7 +28,7 @@ const addItem = async(obj) => {
         }
 
 
-        const resJson = await fetch('/add-item', options);
+        const resJson = await fetch('/shopping-cart/add-item', options);
         const { status } = await resJson.json();
 
         if (status == 'success') {

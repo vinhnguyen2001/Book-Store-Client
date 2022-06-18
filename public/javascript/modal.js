@@ -2,17 +2,19 @@ const modalNoti = ({ msg, type, duration = 3000, buy }) => {
     const main = document.getElementById("modal-mgs");
     if (main) {
 
-        const header = document.querySelector(".navigation");
+        const header = document.querySelector(".header");
         const container = document.querySelector(".container");
         container.classList.add("background-blur");
         header.classList.add("background-blur");
 
         const modal = document.createElement("div");
-        const close = document.getElementById("btn-close");
         modal.classList.add("modal-mgs");
+
         // Auto remove toast
         const autoRemoveId = setTimeout(function() {
             main.removeChild(modal);
+            container.style.transition = " all linear .5s";
+            header.style.transition = " all linear .5s";
             container.classList.remove("background-blur");
             header.classList.remove("background-blur");
         }, duration + 1000);
@@ -22,6 +24,8 @@ const modalNoti = ({ msg, type, duration = 3000, buy }) => {
         modal.onclick = function(e) {
             if (e.target.closest(".btn--close")) {
                 main.removeChild(modal);
+                container.style.transition = " all linear .5s";
+                header.style.transition = " all linear .5s";
                 container.classList.remove("background-blur");
                 header.classList.remove("background-blur");
                 clearTimeout(autoRemoveId);
@@ -34,7 +38,7 @@ const modalNoti = ({ msg, type, duration = 3000, buy }) => {
         };
         const icon = icons[type];
         const delay = (duration / 1000).toFixed(2);
-        modal.style.animation = `slideInTop ease .3s, fadeOut linear 1s ${delay}s forwards`;
+        modal.style.animation = `slideInTop ease .5s, fadeOut linear 1s ${delay}s forwards`;
 
         if (type == "success" && buy == "true") {
             modal.innerHTML =
@@ -46,7 +50,7 @@ const modalNoti = ({ msg, type, duration = 3000, buy }) => {
             </div>
             <div class= "modal-mgs--button">
                 <div >
-                    <a href="/giohang" id="btn-link-cart">
+                    <a href="/shopping-cart" id="btn-link-cart">
                     Xem giỏ hàng
                     </a>
                 </div>

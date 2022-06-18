@@ -40,10 +40,10 @@ html {
 
 /* container cart */
 
-.container-cart {
+.container {
     height: auto;
     border-top: 0.25px solid #eee;
-    margin-bottom: 10rem;
+    margin-bottom: 15rem;
     padding: 0;
     padding: 0 10rem;
     min-width: 100%;

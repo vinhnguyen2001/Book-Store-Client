@@ -11,8 +11,6 @@ router.get("/homepage", async(req, res) => {
     try {
 
         const firstPacks = await getFiveProducts(1, 2, 3, 4, 5);
-
-
         // console.log("firstPack :", firstPacks);
         for (item of firstPacks) {
 
@@ -27,7 +25,6 @@ router.get("/homepage", async(req, res) => {
             firstPacks,
             secondPacks: firstPacks,
             thirdPacks: firstPacks,
-
         });
 
 
@@ -48,6 +45,7 @@ router.get('/book/:id/detail', async(req, res) => {
         const productData = await getDetailInforProduct(id);
         // console.log(productData)
 
+        productData[0].price = showingPrice(productData[0].price);
 
         res.render("DetailBook/DetailBook", {
             title: "Home page | Blue Book Store ",

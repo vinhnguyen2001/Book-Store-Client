@@ -1,6 +1,6 @@
 const exhbs = require('express-handlebars');
 const path = require('path');
-console.log("path join", path.join(__dirname, 'views/partials'));
+// console.log("path join", path.join(__dirname, 'views/partials'));
 
 module.exports = (app) => {
 

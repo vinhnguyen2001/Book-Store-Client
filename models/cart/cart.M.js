@@ -11,3 +11,14 @@ exports.addNewCarts = async(accountID) => {
 
     return data.rows;
 }
+
+exports.getCart = async(accountID) => {
+
+    const { rows } = await db.query(`
+    SELECT cart_id 
+    FROM  ${carts}
+    WHERE "account_id" = '${accountID}'
+    `);
+
+    return rows[0].cart_id;
+}

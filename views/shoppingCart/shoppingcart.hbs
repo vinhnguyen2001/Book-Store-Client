@@ -1,3 +1,5 @@
+<div id="modal-mgs">
+</div>
 <div class="container-cart container">
     
     <div class="title section-title">
@@ -19,24 +21,27 @@
 
             <tbody>
               
-                {{#each Contents}}
+                {{#each packs}}
                 <tr>
                     <td class="first" scope="row">
-                    <div class="cart-img"> <img src="../../image/{{this.image}}"  alt="photo1" width="100%"></div>
+                    <div class="cart-img"> <img src="{{this.image_link}}"  alt="photo1" width="100%"></div>
                     </td>
-                    <td class="cart__name-item "><a href="/shoes/{{shoes_id}}/detail">{{this.shoes_name}}</a></td>
-                    <td class="cart__price">{{this.price}}</td>
+                    <td class="cart__name-item "><a href="/book/{{product_id}}/detail">{{this.product_name}}</a></td>
+                    <td class="cart__price"><span id="display-price" >{{this.price}}</span> đ
+                      <input  style="display:none" type="number" value="{{this.prevprice}}" name="price" id="price-value">
+                    </td>
                     <td class="cart__input" >
-                      <input name="quantity" onchange="checkValidation(this,{{this.cart_quantity}},this.parentElement)"class="cart__input--item cart--quantity" type="number" min="1" max="{{this.shoe_stock}}" step="1" value="{{this.cart_quantity}}">
+                      <input name="quantity" onchange="checkValidation(this,{{this.cart_quantity}},this.parentElement)"class="cart__input--item cart--quantity" type="number" min="1" max="{{this.stock}}" step="1" value="{{this.cart_quantity}}">
                       </input>
                     </td>
                     <td class="cart__stock">
-                      <p>{{this.shoe_stock}}</p>
+                      <p>{{this.stock}}</p> sản phẩm 
                     </td>
                     <td>
                         <button type="button"  class="payment_option btn-del-item" style="padding: 5px; font-size:15px"
-                            data-toggle="modal" data-type="one" data-name="{{this.shoes_name}}"
-                            data-idcontent="{{this.cart_content_id}}" data-c_id="{{Cart_id}}" data-s_id={{this.shoes_id}} data-cart_size ={{this.cart_size}}
+                            data-toggle="modal" data-type="one" data-name="{{this.product_name}}"
+                            data-cart_content_id="{{this.cart_content_id}}" data-cart_id="{{cart_id}}" 
+                            data-product_id="{{this.product_id}}" 
                             data-target="#removeModal">
                             Xóa
                         </button>
@@ -50,8 +55,11 @@
             <tfoot>
               <tr>
                 <td>Tổng giá tiền:</td>
-                <td id="sumPrice">
-                  {{sumPrice}}
+                <td id="display-total-price"><span
+                id="sumPrice">
+                {{sumPrice}}
+                </span>
+                   đ
                 </td>
               </tr>
             </tfoot>
@@ -106,8 +114,8 @@
   document.addEventListener('DOMContentLoaded', function () {    
     // Phần của remove
     var removeType;
-    var c_id;
-    var s_id;
+    var cart_content_id;
+    var product_id;
     var idcontent = 0;
     var btnRemove = document.getElementById("btnRemove");
     var removeForm = document.forms['removeForm'];
@@ -116,14 +124,13 @@
     $('#removeModal').on('show.bs.modal', function (event) {
       var passBtn = $(event.relatedTarget);
       removeType = passBtn.data('type');
-      c_id = passBtn.data('c_id');
+      cart_id = passBtn.data('c_id');
       if (removeType === "one") {
-        s_id = passBtn.data('s_id');
-        idcontent = passBtn.data('idcontent');
-        var s_name = ucwords(passBtn.data('name'),true);
-        var s_size = passBtn.data('size');
+        product_id = passBtn.data('product_id');
+        cart_content_id = passBtn.data('cart_content_id');
+        var product_name = ucwords(passBtn.data('name'),true);
         $('#removeModalHead').text("Xóa sản phẩm khỏi giỏ hàng");
-        $('#removeModalMsg').text(`  Bạn có chắc chắn muốn xóa giày ${s_name} khỏi giỏ hàng?`);
+        $('#removeModalMsg').text(`  Bạn có chắc chắn muốn xóa sản phẩm "${product_nam}" khỏi giỏ hàng?`);
       }
     
     });
@@ -131,7 +138,7 @@
     btnRemove.onclick = function () {
       // Nếu xóa 1 sản phẩm
       if (removeType === "one") {
-        removeForm.action = '/giohang/' + idcontent + '?_method=DELETE';
+        removeForm.action = '/shopping-cart/' + cart_content_id + '/delete'+'?_method=DELETE';
         return removeForm.submit();
       }
     };

@@ -11,8 +11,10 @@ const priceForShow = (price) => {
 const checkValidation = (obj, preValue, quantity) => {
 
     const parentElm = quantity.parentNode;
+    console.log("parentElm: ", parentElm)
     const price = parentElm.querySelector(".cart__price");
-    const pricePerItem = parentElm.querySelector('.price').innerText;
+    const displayPrice = parentElm.querySelector("#display-price");
+    const pricePerItem = parentElm.querySelector('#price-value').value;
 
     if (parseInt(obj.value) > parseInt(obj.max)) {
 
@@ -23,7 +25,7 @@ const checkValidation = (obj, preValue, quantity) => {
         obj.value = preValue;
     } else {
 
-        price.innerText = priceForShow(parseInt(obj.value) * parseInt(pricePerItem));
+        displayPrice.innerText = priceForShow(parseInt(obj.value) * parseInt(pricePerItem));
         const prices = document.querySelectorAll(".cart__price");
         let totalPrice = document.querySelector("#sumPrice");
         console.log("sumPrice", totalPrice);
@@ -62,19 +64,19 @@ const buyingItems = async() => {
         }
         try {
 
-            const resJson = await fetch("/giohang", options);
+            const resJson = await fetch("/shopping-cart", options);
             const { status } = await resJson.json();
 
-            if (status == success) {
-                location.assign('/thanhtoan/thongtin');
+            if (status == "success") {
+                location.assign('/payment/information-order');
             } else {
                 throw Error("Error for update items in cart");
             }
         } catch (err) {
             console.error("error for buying: ", err);
         }
+    } else {
+
+        location.assign('/payment/information-order');
     }
-    location.assign('/thanhtoan/thongtin');
-
-
 }
