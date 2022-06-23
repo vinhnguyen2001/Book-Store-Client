@@ -24,11 +24,16 @@ router.get("/", async(req, res) => {
             item.order_total = showingPrice(item.order_total);
 
             item.order_time = convertDate(item.order_time);
+            console.log("status:", item.order_status)
             if (item.order_status == 0) {
-                item.order_status = "Chưa thanh toán"
+                item.order_status = "Chưa xác nhận";
             } else if (item.order_status == 1) {
-                item.order_status = "Đã thanh toán"
-            } else {
+                item.order_status = "Đã xác nhận";
+            } else if (item.order_status == 2) {
+                item.order_status = "Đã đang giao";
+            } else if (item.order_status == 3) {
+                item.order_status = "Đã giao";
+            } {
                 item.order_status = "Đã hủy"
             }
         }

@@ -76,10 +76,10 @@ create table accounts (
 	firstname	varchar(50), --Họ, tên đệm
 	lastname	varchar(50), --Tên
 	phone		varchar(15), --Sđt, phục vụ cho việc liên lạc
-	address		varchar(15), --Sđt, phục vụ cho việc liên lạc
-	ward		varchar(15), --Sđt, phục vụ cho việc liên lạc
-	district		varchar(15), --Sđt, phục vụ cho việc liên lạc
-	province		varchar(15), --Sđt, phục vụ cho việc liên lạc
+	address		varchar(255), --Sđt, phục vụ cho việc liên lạc
+	ward		varchar(50), --Sđt, phục vụ cho việc liên lạc
+	district		varchar(50), --Sđt, phục vụ cho việc liên lạc
+	province		varchar(50), --Sđt, phục vụ cho việc liên lạc
 
 	-- Khi đăng ký chỉ tạo tài khoản customer thêm vào db
 	-- Tài khoản onwer chỉ có thể thêm trực tiếp từ db
@@ -99,6 +99,7 @@ create table comments (
 	account_id		serial, 
 	comment_time	timestamp, --Thời điểm bình luận
 	comment_body	varchar(255), --Nội dung comment, giới hạn 255 ký tự
+	comment_status	int,
 
 	primary key(comment_id),
 
@@ -151,9 +152,9 @@ create table orders (
 	order_time		timestamp, --Ngày giờ tạo hóa đơn
 	order_phone		varchar(15), --Sđt, phục vụ cho việc giao hàng
 	order_a		varchar(255), --Sđt, phục vụ cho việc liên lạc
-	order_w		varchar(15), --Sđt, phục vụ cho việc liên lạc
-	order_d		varchar(15), --Sđt, phục vụ cho việc liên lạc
-	order_p		varchar(15), --Sđt, phục vụ cho việc liên lạc
+	order_w		varchar(50), --Sđt, phục vụ cho việc liên lạc
+	order_d		varchar(50), --Sđt, phục vụ cho việc liên lạc
+	order_p		varchar(50), --Sđt, phục vụ cho việc liên lạc
 	-- Sẽ có 2 lựa chọn là "Đặt mua" \(thanh toán sau khi nhận hàng\) -> tạo hóa đơn state 0
     --				  hoặc "Thanh toán ngay" 						  -> tạo hóa đơn state 1
 	-- Owner sẽ quản lý hóa đơn bằng cách sửa state hóa đơn giữa 0 và 1
@@ -216,12 +217,12 @@ insert into images values--(product_id, image_link) values
 (1, 9, 'https://cdn0.fahasa.com/media/catalog/product/p/h/ph_c-h_a-ch_n-dung-k_-ph_m-t_i.jpg'),
 (1, 10, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_208345.jpg');
 
-insert into accounts(username, pwd, firstname, lastname, phone, address, ward, district, province) values
-('admin', '12345678', 'Tên', 'Chủ shop', '0123456789', 'Không', 'Không', 'Không', 'Không'),
-('staff1', '12345678', 'Tên', 'Nhân viên 1', '0123456789', 'Không', 'Không', 'Không', 'Không'),
-('staff2', '12345678', 'Tên', 'Nhân viên 2', '0123456789', 'Không', 'Không', 'Không', 'Không'),
-('customer1', '12345678', 'Tên', 'Khách hàng 1', '0123456789', 'Không', 'Không', 'Không', 'Không'),
-('customer2', '12345678', 'Tên', 'Khách hàng 2', '0123456789', 'Không', 'Không', 'Không', 'Không');
+insert into accounts(username, pwd, firstname, lastname, phone, address, ward, district, province, role_id, account_status) values
+('admin', '12345678', 'Tên', 'Chủ shop', '0123456789', 'Không', 'Không', 'Không', 'Không', 1, 1),
+('staff1', '12345678', 'Tên', 'Nhân viên 1', '0123456789', 'Không', 'Không', 'Không', 'Không', 2, 1),
+('staff2', '12345678', 'Tên', 'Nhân viên 2', '0123456789', 'Không', 'Không', 'Không', 'Không', 2, 1),
+('customer1', '12345678', 'Tên', 'Khách hàng 1', '0123456789', 'Không', 'Không', 'Không', 'Không', 3, 1),
+('customer2', '12345678', 'Tên', 'Khách hàng 2', '0123456789', 'Không', 'Không', 'Không', 'Không', 3, 1);
 
 insert into carts(account_id) values (4), (5);
 
@@ -241,6 +242,6 @@ insert into order_content(order_id, product_id, order_price, order_quantity) val
 (3, 5, 50000, 1), (3, 6, 120000, 1),
 (4, 7, 10000, 1), (4, 8, 20000, 1);
 
-insert into comments(product_id, account_id, comment_time, comment_body) values
-(2, 4, '2022-05-27 16:00:00.0', 'Truyện hay quá!'), (3, 4, '2022-05-27 16:05:00.0', 'Mong ra chương mới!'),
-(6, 5, '2022-05-26 15:00:00.0', 'Sách này ảo thật đấy!'), (5, 5, '2022-05-26 15:05:00.0', 'Làm giàu không khó!');
+insert into comments(product_id, account_id, comment_time, comment_body, comment_status) values
+(2, 4, '2022-05-27 16:00:00.0', 'Truyện hay quá!', 1), (3, 4, '2022-05-27 16:05:00.0', 'Mong ra chương mới!', 1),
+(6, 5, '2022-05-26 15:00:00.0', 'Sách này ảo thật đấy!', 1), (5, 5, '2022-05-26 15:05:00.0', 'Làm giàu không khó!', 1);

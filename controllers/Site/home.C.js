@@ -5,7 +5,7 @@ const { getFiveProducts, showingPrice, getDetailInforProduct, getProductsByName 
 
 const { ListUsers, User, listUsers, checkCurrentUser } = require("../../middlewares/authentication.MW")
 
-
+const { getAllCommentByProdID } = require("../../models/comment/comment.M");
 // GET /
 router.get("/", async(req, res) => {
     res.redirect("/homepage");
@@ -24,14 +24,8 @@ router.get("/homepage", async(req, res) => {
 
         // const curUser = new User(res.locals.user.id, res.locals.user.name, '1', 4);
 
-        console.log('trangg chủ', req.listUsers)
-            // if (listUsers.isExist(curUser.id) == false) {
-            //     // let curUser = new User(curUser.id, data.name, "1", "1");
-            //     res.listUsers.addUser(curUser)
+        // console.log('trangg chủ', req.listUsers)
 
-
-        // }
-        // console.log("firstPack :", firstPacks);
         for (item of firstPacks) {
 
             item.price = showingPrice(item.price);
@@ -62,18 +56,23 @@ router.get('/book/:id/detail', async(req, res) => {
 
     try {
         const { id } = req.params;
+
+        const cmtData = await getAllCommentByProdID(id);
+        // console.log("cmtData: ", cmtData);
         const productData = await getDetailInforProduct(id);
-        console.log('trang detail', req.listUsers)
+        // console.log('trang detail', req.listUsers)
 
         // console.log(productData)
 
         productData[0].price = showingPrice(productData[0].price);
 
         res.render("DetailBook/DetailBook", {
-            title: "Home page | Blue Book Store ",
+            title: `${productData[0].product_name} - Detail Book | Blue Book Store `,
             cssCs: () => "detail/css",
             scriptCs: () => "detail/script",
             pack: productData[0],
+            cmtPacks: cmtData,
+
         });
 
     } catch (err) {

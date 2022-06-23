@@ -30,6 +30,11 @@
                         </a>
                         
                 </div>
+
+                <div class="content__right--decription right--item">
+                    <span style="text-transform:capitalize"><b>Mô tả </b></span>
+                    <p>{{pack.description}}</p>
+                </div>
             </div>
         </div>
         <div class="content__right">
@@ -54,21 +59,36 @@
 
             </div>
 
-            <div class="content__right--decription right--item">
-                 <span style="text-transform:capitalize"><b>Mô tả </b></span>
-                <p>{{pack.description}}</p>
-            </div>
-
+           
             <div class="content__right--comment right--item">
+                <div class="comment-input">
+                    <span style="text-transform:capitalize"><b>Nhập bình luận tại đây </b></span>
+                    <input type="text" id="cmt-content" name="comment">
+                    <button type="submit" id="sendbtn"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
 
-                <div class="comment-item">
-                    <div class="cmt-avatar">
-                        <img src="../../img/firstpic.jpg" alt="avatar-photo">
+                <div class="comment-items">
+                    <div class="comment-item">
+                        <div class="cmt-avatar">
+                            <img src="../../img/firstpic.jpg" alt="avatar-photo">
+                        </div>
+                        <div class="cmt-msg">
+                            <h4><b>Test Admin </b></h4>
+                            <p>Sản phẩm tuyệt vời lắm ạ !</p>
+                        </div>
+                    
                     </div>
-                    <div class="cmt-msg">
-                        {{!-- <h4><b>Name</b></h4>
-                        <p>fasgagahaasddddddddddddddsaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p> --}}
+                    {{#each cmtPacks}}
+                    <div class="comment-item">
+                        <div class="cmt-avatar">
+                            <img src="../../img/firstpic.jpg" alt="avatar-photo">
+                        </div>
+                        <div class="cmt-msg">
+                            <h4><b>{{this.firstname}} {{this.lastname}} </b></h4>
+                            <p>{{this.comment_body}}</p>
+                        </div>
                     </div>
+                        {{/each}}
                 </div>
             </div>
         </div>
