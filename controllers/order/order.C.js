@@ -8,6 +8,10 @@ const { getOrderContentByIdOrder } = require("../../models/order/ordercontent.M"
 router.get("/", async(req, res) => {
 
     try {
+
+        if (!res.locals.user) {
+            return res.redirect("/auth/login");
+        };
         const account_id = res.locals.user.id;
         let totalPrice = 0;
 
@@ -46,6 +50,9 @@ router.get("/", async(req, res) => {
 router.get("/:id/detail", async(req, res) => {
     try {
 
+        if (!res.locals.user) {
+            return res.redirect("/auth/login");
+        };
         const account_id = res.locals.user.id;
         let totalPrice = 0;
 

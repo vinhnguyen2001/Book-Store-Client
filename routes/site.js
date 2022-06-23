@@ -5,4 +5,5 @@ const { authenToken, authenTokenResApi, checkCurrentUser, checkUserIsLogin } = r
 router.use('/', checkCurrentUser, require('../controllers/site/home.C'));
 router.use('/search', require('../controllers/site/home.C'));
 
+
 module.exports = router;

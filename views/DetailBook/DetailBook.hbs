@@ -1,3 +1,5 @@
+<div id="modal-mgs">
+</div>
 <div class="container">
 
     <div class="route-page">
@@ -44,15 +46,30 @@
             <div class="content__right--quantity right--item">
                  <span style="text-transform:capitalize"><b>Giá thành: </b>  <span style="color:rgb(235, 68, 68)">{{pack.price}} VNĐ</span></span>
             </div>
-            <div class="content__right--button right--item">
-                 <button type="button">
+            <div class="content__right--button right--item" >
+                 <button type="button" onclick="addItem(this)">
                     Mua Ngay
                 </button>
+                <div class="product_id" style="display:none">{{pack.product_id}}</div>
+
             </div>
 
             <div class="content__right--decription right--item">
                  <span style="text-transform:capitalize"><b>Mô tả </b></span>
                 <p>{{pack.description}}</p>
+            </div>
+
+            <div class="content__right--comment right--item">
+
+                <div class="comment-item">
+                    <div class="cmt-avatar">
+                        <img src="../../img/firstpic.jpg" alt="avatar-photo">
+                    </div>
+                    <div class="cmt-msg">
+                        {{!-- <h4><b>Name</b></h4>
+                        <p>fasgagahaasddddddddddddddsaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p> --}}
+                    </div>
+                </div>
             </div>
         </div>
 

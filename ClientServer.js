@@ -19,9 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(routes);
 app.use(express.static(path.join(__dirname, "public"))); // publish folder public
-
-
-// Server listen in port 3000
+app.use("*", require("./controllers/Site/oop.C"))
+    // Server listen in port 3000
 app.listen(port, () => {
     console.log(`Listen in port ${port}`);
 });

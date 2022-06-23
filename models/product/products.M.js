@@ -70,3 +70,37 @@ exports.getProductById = async(product_id)=>{
 
     return rows;
 }
+
+
+const totalProdInSubject  = async (IDsubject) =>{
+
+    const {rows} = await db.query(`
+    
+    SELECT count(*) FROM ${products} PD JOIN public.categories CAG
+    ON PD.category_id = CAG.category_id
+    WHERE CAG.category_id = ${IDsubject} AND  PD.is_active = 1  
+    `);
+
+    return rows[0].count;
+}
+
+exports.getProdbyIDSubject = async({IDsubject,page = 1, price: price='', filter:filter = '', per_page = 8})=>{
+
+    const offset = (page - 1) * per_page;
+    const {rows} = await db.query(`
+    SELECT * FROM ${products} PD JOIN  public.categories CAG
+    ON PD.category_id = CAG.category_id JOIN  public.images IMG ON IMG.product_id = PD.product_id 
+    AND IMG.image_id = 1
+    WHERE CAG.category_id = ${IDsubject} AND  PD.is_active = 1  
+    ${price} ${filter}
+    LIMIT $1 OFFSET $2
+    `,[per_page, offset]);
+
+
+    const totalProducts = await totalProdInSubject(IDsubject);
+
+    const total_page = totalProducts % per_page == 0 ? totalProducts / per_page : Math.floor(totalProducts /per_page) + 1; 
+
+    return {total_page:total_page, packs:rows};
+
+};

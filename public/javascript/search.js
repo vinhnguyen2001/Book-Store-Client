@@ -1,8 +1,19 @@
 const formSelect = document.querySelector('#form-filter');
 // const checkItem = document.querySelectorAll('.form__check--item');
-const product = document.querySelector('.product')
-    // const minInputPrice = document.querySelector("#range-slider-min-input");
-    // const maxInputPrice = document.querySelector("#range-slider-max-input");
+const product = document.querySelector('.product');
+console.log(window.location);
+// product.innerHTML = `<div class="loader"></div>`;
+
+// window.onload = () => {
+//     product.classList.remove = "loader";
+// }
+
+// window.addEventListener("load", () => {
+//     product.classList.remove = "loader";
+// });
+// product.innerHTML = ``;
+// const minInputPrice = document.querySelector("#range-slider-min-input");
+// const maxInputPrice = document.querySelector("#range-slider-max-input");
 const inputValue = document.querySelectorAll(".numberVal input");
 const filterValue = document.querySelector("#brand-filter");
 
@@ -11,22 +22,12 @@ console.log("value:", filterValue, filterValue.value);
 formSelect.onsubmit = async(e) => {
     e.preventDefault();
     const search = document.querySelector("#search").value.trim().toLowerCase();
-
-
-    // const check_active = document.querySelectorAll('.check-active');
-    // const check_range = document.querySelector('#inputSlider');
     const lowerPrice = parseInt(range[0].value);;
     const upperPrice = parseInt(range[1].value);;
-    // var arrSizes = [];
-    // for (elm of check_active) {
-    //     arrSizes.push(parseInt(elm.innerText));
-
-    // }
-
-
-
-
     const data = { search, lowerPrice, upperPrice, filter: filterValue.value };
+
+
+
     const options = {
         method: 'POST',
         headers: {
@@ -38,8 +39,15 @@ formSelect.onsubmit = async(e) => {
 
     try {
 
-        const resJson = await fetch('/search', options);
-        const { data } = await resJson.json();
+        const path_name = window.location.pathname;
+        let routeFetch = `${path_name}`;
+        // formSelect.acttion
+        if (path_name == "/search") {
+            routeFetch = "/search";
+        }
+        const resJson = await fetch(routeFetch, options);
+        const { data, total_page, id_subject, name_subject } = await resJson.json();
+
         product.innerHTML = "";
         if (data.length == 0) {
             $(".product").append(` 
@@ -78,15 +86,20 @@ formSelect.onsubmit = async(e) => {
             )
 
         }
-        // $('.product__size--back').empty();
-        // const backSide = document.querySelectorAll(".product__size--back");
-        // let index = 0;
-        // for (elm of items) {
-        //     for (value of elm.size) {
-        //         backSide[index].innerHTML += ` <span class="product__size-item" onclick="chooseSize(this)">${value}</span>`;
-        //     }
-        //     index++;
-        // }
+
+        if (total_page) {
+            const pagination = document.querySelector(".pagination");
+            pagination.innerHTML = ``;
+
+            for (let i = 1; i < total_page + 1; i++) {
+                pagination.innerHTML += `
+                <div class="page-item lower-item">
+                <a href="/subject/${id_subject}/${name_subject}?page=${i}&filter=${filterValue.value}&lowerPrice=${range[0].value}&upperPrice=${range[1].value}">${i}</a>
+                </div>
+                `
+            }
+        }
+
     } catch (e) {
         console.error("error search: ", e);
     }

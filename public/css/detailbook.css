@@ -17,6 +17,8 @@
 
 .content__left {
     padding: 0rem 3rem 0rem 3rem;
+    min-width: 100% !important;
+    max-width: 100%;
 }
 
 .content__right {
@@ -94,4 +96,27 @@ img {
 
 .carousel-control-prev {
     transform: translateX(-3.5rem);
+}
+
+.cmt-avatar {
+    width: 5rem;
+    height: 5rem;
+    overflow: hidden;
+    clip-path: circle(50% at 50% 50%);
+}
+
+.comment-item {
+    display: grid;
+    grid-template-columns: 1fr 6.5fr;
+}
+
+.cmt-msg {
+    background-color: #ccc;
+    min-height: 5rem;
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+}
+
+.cmt-msg p {
+    word-wrap: break-word;
 }

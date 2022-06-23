@@ -1,4 +1,60 @@
 const jwt = require('jsonwebtoken');
+class User {
+
+    constructor(userID, userName, cartID, numOfProd) {
+        this.userID = userID;
+        this.userName = userName;
+        this.cartID = cartID;
+        this.numOfProd = numOfProd;
+    }
+
+    getNumofProd() {
+        return this.numOfProd;
+    }
+
+    displayInfo() {
+        console.log(this.userID, this.userName, this.cartID, this.numOfProd);
+    }
+}
+
+class ListUsers {
+
+    users = [];
+
+    addUser(newUser) {
+        this.users.push(newUser);
+    }
+
+
+    displayListUser() {
+
+        for (let item of this.users) {
+            item.displayInfo();
+        }
+    }
+
+
+    isExist(newUserID) {
+        for (let item of this.users) {
+
+            if (String(item.userID) === String(newUserID)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+}
+
+const sampleUser = new User(1, "Vinh", '1', 4);
+let x = sampleUser.getNumofProd()
+
+const listUsers = new ListUsers();
+listUsers.addUser(sampleUser);
+// listUsers.displayListUser();
+// console.log(listUsers.isExist(sampleUser.userID));
+// console.log("sample: ", x, sampleUser.userID)
 
 const authenTokenResApi = (req, res, next) => {
 
@@ -49,6 +105,7 @@ const authenToken = (req, res, next) => {
                 res.locals.user = null;
             }
             res.locals.user = data;
+
         });
 
         next();
@@ -68,11 +125,18 @@ const checkCurrentUser = (req, res, next) => {
 
             // let quantity = await getQuantityByUserId(data.id);
             res.locals.user = data;
-            // res.locals.cart_quantity = quantity[0].count;
+
+            if (typeof(req.listUsers) == 'undefined') {
+                req.listUsers = Object(listUsers);
+            }
+
+            const curUser = new User(res.locals.user.id, res.locals.user.name, '1', 4);
+            if (req.listUsers.isExist(curUser.userID) === false) {
+                req.listUsers.addUser(curUser)
+            }
         });
-
-
         next();
+
     }
 }
 
@@ -93,4 +157,6 @@ const checkUserIsLogin = (req, res, next) => {
     }
 };
 
-module.exports = { authenToken, authenTokenResApi, checkCurrentUser, checkUserIsLogin }
+
+
+module.exports = { authenToken, authenTokenResApi, checkCurrentUser, checkUserIsLogin, User, ListUsers, listUsers }

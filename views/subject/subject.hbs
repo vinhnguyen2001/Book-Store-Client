@@ -1,8 +1,9 @@
 <div id="modal-mgs">
 </div>
 <div class="container">
+    
     <div class="display-filter">
-        <form id="form-filter" action="/search" method="post">
+        <form id="form-filter" action="/subject" method="post">
             <div class="select__price">
                 <label class="choose-title">Giá sản phẩm </label> 
                 <div class="select__price--content price__content">
@@ -47,7 +48,9 @@
     </div>
 
     <div class="display-product">
-     
+        <div class="title section-title">
+        <h3 class="section-bestseller title secondary-title">CHỦ ĐỀ {{name_subject}}</h3>
+        </div>
         <div class="product">
             {{#each packs}}
             <div class="product__item" onmouseover="showPurchasegoods(this)" onmouseout="hidePurchasegoods(this)">
@@ -80,6 +83,18 @@
                 </h2>
             </div>
         {{/compareInt}}
+        </div>
+
+
+        <div class="product-pagination">
+            <div class="pagination">
+                {{#forN total_page}}
+                <div class="page-item lower-item">
+                    <a href="/subject/{{../id_subject}}/{{../name_subject}}?page={{this}}&filter={{filter}}&lowerPrice=${{lowerPrice}}&upperPrice={{upperPrice}}">
+                    {{this}}</a>
+                </div>
+                {{/forN}}
+            </div>
         </div>
     </div>
 

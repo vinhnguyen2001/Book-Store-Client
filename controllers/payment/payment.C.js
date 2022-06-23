@@ -21,7 +21,6 @@ router.get("/", async(req, res) => {
         let totalPrice = 0;
         const user = await getAccountById(account_id);
 
-        console.log("uer", user);
         const cart_id = await getCart(account_id);;
         const data = await getCartContentByIdCart(cart_id);
 
@@ -58,9 +57,6 @@ router.post("/", async(req, res) => {
         let { lastname, firstname, email, phone, address, province, district, ward, total } = req.body;
         var strQuery = ``;
 
-
-        console.log(req.body);
-
         if (lastname == "" || firstname == "") {
             return res.redirect('/payment/information-order?error=003');
         }
@@ -77,7 +73,7 @@ router.post("/", async(req, res) => {
         const cart_id = await getCart(account_id);
         const itemsInCart = await getCartContentByIdCart(cart_id);
 
-        const newOrder = await addNewOrder(account_id, total, phone, address, ward, district, province, 1);
+        const newOrder = await addNewOrder(account_id, total, phone, address, ward, district, province, 0);
         // lap cau truy van
         for (item of itemsInCart) {
             strQuery += `(${newOrder[0].order_id},${item.product_id},${item.price},${item.cart_quantity}),`;

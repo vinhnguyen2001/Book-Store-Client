@@ -3,14 +3,34 @@ const router = express.Router();
 
 const { getFiveProducts, showingPrice, getDetailInforProduct, getProductsByName } = require("../../models/product/products.M")
 
+const { ListUsers, User, listUsers, checkCurrentUser } = require("../../middlewares/authentication.MW")
+
+
+// GET /
+router.get("/", async(req, res) => {
+    res.redirect("/homepage");
+})
 
 
 // GET /homepage
 router.get("/homepage", async(req, res) => {
 
+
     try {
 
         const firstPacks = await getFiveProducts(1, 2, 3, 4, 5);
+        // console.log(res.locals.user)
+        req.currentUser = Object.assign(1);
+
+        // const curUser = new User(res.locals.user.id, res.locals.user.name, '1', 4);
+
+        console.log('trangg chủ', req.listUsers)
+            // if (listUsers.isExist(curUser.id) == false) {
+            //     // let curUser = new User(curUser.id, data.name, "1", "1");
+            //     res.listUsers.addUser(curUser)
+
+
+        // }
         // console.log("firstPack :", firstPacks);
         for (item of firstPacks) {
 
@@ -43,6 +63,8 @@ router.get('/book/:id/detail', async(req, res) => {
     try {
         const { id } = req.params;
         const productData = await getDetailInforProduct(id);
+        console.log('trang detail', req.listUsers)
+
         // console.log(productData)
 
         productData[0].price = showingPrice(productData[0].price);

@@ -1,17 +1,7 @@
 const addItem = async(obj) => {
     const parentElement = obj.parentNode;
-    const idBook = parentElement.children[4].innerText;
+    const idBook = parentElement.querySelector(".product_id").innerText;
 
-    // console.log("parent:", parentElement, idBook)
-
-    // const sizeShoe = parentElement.querySelector('.size-item-active');
-    // console.log(parentElement.children);
-    // console.log(sizeShoe);
-
-    // if (!sizeShoe) {
-    //     alert("Bạn vui lòng chọn kích thước");
-    //     return;
-    // }
     const hostOrigin = window.location.origin;
     const pathname = window.location.pathname;
 

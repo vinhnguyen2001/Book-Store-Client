@@ -10,7 +10,11 @@ const { getFiveProducts, showingPrice, getDetailInforProduct, getProductsByName 
 router.get('/', async(req, res) => {
 
     try {
-        let bookID = req.params.id;
+
+        if (!res.locals.user) {
+            return res.redirect("/auth/login");
+        };
+
         const account_id = res.locals.user.id;
         let totalPrice = 0;
 
@@ -77,6 +81,13 @@ router.post('/add-item', async(req, res) => {
         // let bookID = req.params.id;
 
         const { id } = req.body;
+        console.log(req.body);
+
+        if (!res.locals.user) {
+            res.status(400).send({ status: "no-access-token" });
+            return;
+        }
+
         const account_id = res.locals.user.id;
         const cart_id = await getCart(account_id);;
         const existData = await checkItemExistInCartContent(cart_id, id);

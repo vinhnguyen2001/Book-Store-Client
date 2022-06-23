@@ -34,3 +34,16 @@ exports.getAccountById = async(account_id) => {
 
     return rows;
 }
+
+
+exports.updateAccountByIDAccount = async(account_id, firstname, lastname, phone, address, ward, district, province) => {
+
+    const { rows } = await db.query(` 
+    UPDATE ${accounts}
+    SET "firstname"='${firstname}', "lastname"='${lastname}', "phone"='${phone}', "address"='${address}', "ward"='${ward}', "district"='${district}', "province"='${province}'
+    WHERE "account_id"='${account_id}'
+    
+    RETURNING *`);
+
+    return rows;
+}

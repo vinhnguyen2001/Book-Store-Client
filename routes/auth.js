@@ -5,4 +5,5 @@ const { authenToken, authenTokenResApi, checkCurrentUser, checkUserIsLogin } = r
 router.use('/logup', require('../controllers/auth/logup.C'));
 router.use('/login', require('../controllers/auth/login.C'));
 router.use('/logout', require('../controllers/auth/logout.C'));
+
 module.exports = router;

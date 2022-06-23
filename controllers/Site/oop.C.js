@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
+
     res.status(404).send(
         `
             <style> 
@@ -21,10 +22,9 @@ router.get("/", (req, res) => {
             <header>
             <title>Error 404</title>
             </header>
-            <h1>Whoops, looks like something went wrong ! <h1>
+            <h1>Oops, looks like something went wrong ! <h1>
            
-            
-            <img id="iframe02" width=480 height=509.133  src="../../../image/lolidance.gif" > </img>
+            <img id="iframe02" width=480 height=509.133  src="../img/lolidance.gif" > </img>
             <audio loop id="mysong">
             <source src="../../audio/loli_dance_totally.mp3"  type="audio/mpeg">
             Your browser does not support the audio element
