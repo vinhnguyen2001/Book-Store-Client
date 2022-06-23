@@ -69,7 +69,7 @@ router.get('/book/:id/detail', async(req, res) => {
         }
         // console.log('trang detail', req.listUsers)
 
-        console.log(productData)
+        // console.log(productData)
 
         productData[0].price = showingPrice(productData[0].price);
 
