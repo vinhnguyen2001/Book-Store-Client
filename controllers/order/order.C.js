@@ -23,7 +23,9 @@ router.get("/", async(req, res) => {
             item.order_total = showingPrice(item.order_total);
 
             item.order_time = convertDate(item.order_time);
-            if (item.order_status == 0) {
+
+            console.log("item:", item.order_status);
+            if (item.order_status == '0') {
                 item.order_status = "Chưa xác nhận";
             } else if (item.order_status == 1) {
                 item.order_status = "Đã xác nhận";

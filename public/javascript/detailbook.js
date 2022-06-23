@@ -33,6 +33,11 @@ window.onload = () => {
 
             if (status == 'no-access-token') {
                 return showErrorModal("Bạn vui lòng đăng nhập để thực hiện chức năng này");
+            } else if (status == "error") {
+                showErrorModal("Vui lòng không nhập các kí tự đặt biệt");
+                // sleep(1500)
+                // location.assign(`${window.location.pathname}`);
+                return;
             }
 
             if (status == "success") {
@@ -54,7 +59,7 @@ window.onload = () => {
                 showSuccessToast(`Chúng tôi đã ghi nhận lại bình luận của bạn !`)
             }
 
-            console.log("status", status);
+            // console.log("status", status);
 
         } catch (err) {
             console.log("error add commnet: ", err);

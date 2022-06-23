@@ -17,7 +17,8 @@ exports.getDetailInforProduct = async(idProduct) => {
 
     const { rows } = await db.query(`
     SELECT * FROM ${products} PD JOIN public.authors ATH ON PD.author_id = ATH.author_id
-    JOIN public.categories CG ON PD.category_id = CG.category_id
+    JOIN public.categories CG ON PD.category_id = CG.category_id JOIN public.images IMG
+    ON IMG.product_id = PD.product_id
     WHERE  PD.product_id = ${idProduct} 
 
     `);

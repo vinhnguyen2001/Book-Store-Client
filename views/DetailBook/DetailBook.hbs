@@ -16,14 +16,12 @@
             <div class="carousel detail-container slide" id="carouselControls" data-ride="carousel">
                 <div class="detail-img carousel-inner" id="detail-img">
                         {{!-- {{#each item.image}} --}}
+                        {{#each img}}
+                        <div class="carousel-item {{#if @first }}active {{/if}}"> 
+                            <img src="{{this}}">
+                        </div>
+                        {{/each}}
                         
-                        <div class="carousel-item active"> 
-                            <img src="../../img/firstpic.jpg">
-                        </div>
-                        <div class="carousel-item"> 
-                            <img src="../../img/secondpic.jpg">
-                        </div>
-                        {{!-- {{/each}} --}}
                         <a class="carousel-control carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         </a>

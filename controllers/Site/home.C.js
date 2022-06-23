@@ -61,9 +61,15 @@ router.get('/book/:id/detail', async(req, res) => {
         const cmtData = await getAllCommentByProdID(id);
         // console.log("cmtData: ", cmtData);
         const productData = await getDetailInforProduct(id);
+
+        let imgList = [];
+
+        for (let elm of productData) {
+            imgList.push(elm.image_link)
+        }
         // console.log('trang detail', req.listUsers)
 
-        // console.log(productData)
+        console.log(productData)
 
         productData[0].price = showingPrice(productData[0].price);
 
@@ -73,6 +79,7 @@ router.get('/book/:id/detail', async(req, res) => {
             scriptCs: () => "detail/script",
             pack: productData[0],
             cmtPacks: cmtData,
+            img: imgList,
 
         });
 

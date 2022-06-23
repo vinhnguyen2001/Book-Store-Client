@@ -21,6 +21,7 @@ class CommentControllers {
             const accountID = res.locals.user.id;
 
             const userData = await getAccountById(accountID);
+            // console.log(userData)
 
             const newComment = await addNewComment(accountID, productID, commentMSG);
 
@@ -29,6 +30,8 @@ class CommentControllers {
             }
         } catch (err) {
             console.error(err);
+            return res.status(403).json({ status: "error" });
+
             throw Error(err);
         }
     }

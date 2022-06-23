@@ -9,7 +9,7 @@ exports.addNewComment = async(accountID, productID, commentMSG) => {
         `
         INSERT INTO 
         ${comment} (product_id, account_id, comment_time, comment_body, comment_status)
-        VALUES('${productID}', '${accountID}', NOW()::timestamp,'${commentMSG}', 0)
+        VALUES('${productID}', '${accountID}', NOW()::timestamp,'${commentMSG}',0)
 
         RETURNING * 
         `
@@ -24,8 +24,8 @@ exports.getAllCommentByProdID = async(productID) => {
     
     SELECT * 
     FROM ${comment}  CMT JOIN public.accounts ACT ON CMT.account_id = ACT.account_id
-    WHERE CMT.product_id = ${productID}
-    ORDER BY CMT.comment_id DESC
+    WHERE CMT.product_id = ${productID} AND CMT.comment_status = 1
+    ORDER BY CMT.comment_id DESC 
     `);
 
     return rows;
