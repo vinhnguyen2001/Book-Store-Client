@@ -5,7 +5,7 @@ const { authenToken, authenTokenResApi, checkCurrentUser, checkUserIsLogin } = r
 const { CommentControllers } = require("../controllers/Site/comment.C")
 const commentCtls = new CommentControllers;
 
-router.use('/', checkCurrentUser, require('../controllers/site/home.C'));
+router.use('/', require('../controllers/site/home.C'));
 router.use('/search', require('../controllers/site/home.C'));
 router.use('/comment/addnewcomment', commentCtls.addComment);
 

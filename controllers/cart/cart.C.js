@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { updateItemsInCartContent, deleteItemByNameInCartContent, addNewItemsInCartContent, checkItemExistInCartContent, getCartContentByIdCart, updateCartContent } = require("../../models/cart/cartcontent.M")
 const { getCart } = require("../../models/cart/cart.M");
-const { getFiveProducts, showingPrice, getDetailInforProduct, getProductsByName } = require("../../models/product/products.M")
+const { checkValidation, getFiveProducts, showingPrice, getDetailInforProduct, getProductsByName } = require("../../models/product/products.M")
 
 
 // GET /shopping-cart
@@ -89,7 +89,15 @@ router.post('/add-item', async(req, res) => {
         }
 
         const account_id = res.locals.user.id;
-        const cart_id = await getCart(account_id);;
+        const isValidation = await checkValidation(id);
+
+        if (isValidation[0].stock == 0) {
+            return res.status(403).send({ status: "outofproduct" });
+
+        }
+
+
+        const cart_id = await getCart(account_id);
         const existData = await checkItemExistInCartContent(cart_id, id);
 
         if (existData.length != 0) {
@@ -110,14 +118,11 @@ router.post('/add-item', async(req, res) => {
 
 router.delete('/:id/delete', async(req, res) => {
     try {
-        // let bookID = req.params.id;
 
-        console.log(req.params)
         const cartContentId = req.params.id;
         const deletedData = await deleteItemByNameInCartContent(cartContentId);
 
-        res.redirect('back');
-        // console.log(deletedData)
+        return res.redirect('back');
 
     } catch (err) {
         throw Error(err);

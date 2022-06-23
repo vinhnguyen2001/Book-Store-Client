@@ -49,7 +49,9 @@ const handleError = (e) => {
 router.get('/', async(req, res) => {
 
     try {
-
+        if (res.locals.user) {
+            return res.redirect("/homepage");
+        }
         res.render("auth/login", {
             title: "Đăng nhập | Blue Book Store ",
             cssCs: () => "auth/login/css",

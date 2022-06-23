@@ -75,3 +75,15 @@ exports.getCartContentByIdCart = async(cart_id) => {
 
     return rows;
 }
+
+
+exports.getTotalQuantity = async(cartID) => {
+
+    const { rows } = await db.query(`
+    SELECT SUM(CRT.cart_quantity)
+    FROM  ${cart_content} CRT
+    WHERE "cart_id" = '${cartID}'
+    `);
+
+    return rows;
+}

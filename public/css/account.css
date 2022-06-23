@@ -1,6 +1,6 @@
 .container {
     margin-top: 1rem;
-    padding: 2rem 2rem;
+    padding: 2rem 0rem;
     margin-bottom: 10rem;
 }
 
@@ -63,13 +63,18 @@
     column-gap: 10px;
 }
 
-.form-select {
-    display: block;
+.form-select-add .form-select {
     min-width: 100%;
     max-width: 100%;
+    display: block;
     outline-color: #87bcf1;
     padding: 0.75rem 0.5rem;
     border-color: #ccc;
+}
+
+.form-select-add .form-group {
+    min-width: 100%;
+    max-width: 100%;
 }
 
 .save-btn {
@@ -83,4 +88,8 @@
     border-radius: 5px;
     background-color: #fa3d4d;
     color: white;
+}
+
+.save-btn button:active {
+    transform: translateY(1.05px);
 }

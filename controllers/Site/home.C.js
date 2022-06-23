@@ -17,7 +17,7 @@ router.get("/homepage", async(req, res) => {
 
 
     try {
-
+        const { success } = req.query;
         const firstPacks = await getFiveProducts(1, 2, 3, 4, 5);
         // console.log(res.locals.user)
         req.currentUser = Object.assign(1);
@@ -39,6 +39,7 @@ router.get("/homepage", async(req, res) => {
             firstPacks,
             secondPacks: firstPacks,
             thirdPacks: firstPacks,
+            success,
         });
 
 
@@ -117,7 +118,7 @@ router.get('/search', async(req, res) => {
 router.post('/search', async(req, res) => {
 
     try {
-        console.log("body:", req.body)
+        // console.log("body:", req.body)
 
         const { search, lowerPrice, upperPrice, filter } = req.body;
         let strQueryFilter = `ORDER BY ${filter}`;

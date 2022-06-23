@@ -21,8 +21,8 @@
                                     <div class="list-item">
                                         <h4 class="title">VĂN HỌC</h4>
                                         <ul>
-                                            <li><a href="/subject/1/novel">Tiểu thuyết</a></li>
-                                            <li><a href="subject/short-story/{{2}}">Truyện ngắn - Tản Văn</a></li>
+                                            <li><a href="/subject/1/Tiểu thuyết">Tiểu thuyết</a></li>
+                                            <li><a href="/subject/2/Truyện ngắn Tản Văn">Truyện ngắn - Tản Văn</a></li>
                                             <li><a href="#">Light Novel</a></li>
                                             <li><a href="#">Ngôn tình</a></li>
                                         </ul>
@@ -64,7 +64,16 @@
 
                 <div class="header-item item-right">
                     <div>
-                        <a href="/shopping-cart"><i class="fas fa-shopping-cart"></i>
+                        <a href="/shopping-cart"><i class="fas fa-shopping-cart">
+
+                            <span id="cart-amount">
+                                {{#if user}}
+                                    {{user.quantity}}
+                                {{else}}
+                                    0
+                                {{/if}}
+                                </span>
+                        </i>
                         </a>
                     </div>
                     <div class="nav-account">

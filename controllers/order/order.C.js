@@ -17,14 +17,12 @@ router.get("/", async(req, res) => {
 
         const data = await getOrders(account_id);
 
-        // console.log(data);
 
         for (item of data) {
 
             item.order_total = showingPrice(item.order_total);
 
             item.order_time = convertDate(item.order_time);
-            console.log("status:", item.order_status)
             if (item.order_status == 0) {
                 item.order_status = "Chưa xác nhận";
             } else if (item.order_status == 1) {

@@ -16,7 +16,7 @@ exports.addNewAccount = async(firstName, lastName, phone, password) => {
     // console.log(firstName, lastName, phone, password)
     const { rows } = await db.query(
         `INSERT INTO  ${accounts}("pwd","firstname", "lastname", "phone","role_id","account_status") 
-         VALUES  ('${password}', '${firstName}','${lastName}','${phone}',2,1)
+         VALUES  ('${password}', '${firstName}','${lastName}','${phone}',1,1)
          RETURNING *
         `
     )

@@ -78,8 +78,10 @@ const createJWToken = (id, name, role) => {
 router.get('/', async(req, res) => {
 
     try {
-        let bookID = req.params.id;
 
+        if (res.locals.user) {
+            return res.redirect("/homepage");
+        }
         res.render("auth/logup", {
             title: "Đăng kí | Blue Book Store ",
             cssCs: () => "auth/logup/css",
@@ -96,7 +98,7 @@ router.get('/', async(req, res) => {
 router.post("/", async(req, res) => {
 
     const { firstNameValue, lastNameValue, phonevalue, passvalue, errs } = req.body;
-    console.log(req.body)
+    // console.log(req.body)
     try {
 
         if (firstNameValue == '') {
@@ -129,8 +131,8 @@ router.post("/", async(req, res) => {
         // hash password
         const salt = await bcrypt.genSalt(); // Thêm muối
         const pwdHashed = await bcrypt.hash(passvalue, salt);
-        console.log(pwdHashed)
-            //lưu vào database table user
+        // console.log(pwdHashed)
+        //lưu vào database table user
         const newUser = await addNewAccount(firstNameValue, lastNameValue, phonevalue, pwdHashed);
 
         // lưu vào trong database table carts

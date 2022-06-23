@@ -104,3 +104,16 @@ exports.getProdbyIDSubject = async({IDsubject,page = 1, price: price='', filter:
     return {total_page:total_page, packs:rows};
 
 };
+
+
+exports.checkValidation  = async(productID)=>{
+    
+    const {rows} = await db.query(`
+        SELECT *
+        FROM ${products}
+        WHERE "product_id" = ${productID}
+    `);
+
+    return rows;
+
+}

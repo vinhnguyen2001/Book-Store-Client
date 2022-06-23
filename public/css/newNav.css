@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 body {
     line-height: 1.5;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-weight: 400;
     overflow-x: hidden;
     min-width: 100%;
@@ -9,6 +8,7 @@ body {
 
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -213,7 +213,7 @@ img {
 }
 
 .header .menu>ul>li .sub-menu>ul>li {
-    line-height: 1;
+    line-height: 1.7rem;
 }
 
 .header .menu>ul>li .sub-menu>ul>li>a {
@@ -337,4 +337,19 @@ img {
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+/* CODE CHO amount cart*/
+
+.fa-shopping-cart {
+    position: relative;
+}
+
+#cart-amount {
+    position: absolute;
+    font-size: 1.4rem;
+    top: -0.8rem;
+    right: -1rem;
+    color: #ee9b00;
 }

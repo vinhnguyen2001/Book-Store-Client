@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+const { getTotalQuantity } = require("../models/cart/cartcontent.M");
+const { getCart } = require("../models/cart/cart.M");
+
 class User {
 
     constructor(userID, userName, cartID, numOfProd) {
@@ -126,15 +129,31 @@ const checkCurrentUser = (req, res, next) => {
             // let quantity = await getQuantityByUserId(data.id);
             res.locals.user = data;
 
+            // console.log(data.id);
+            const cart_id = await getCart(data.id);
+
+            let totalQuantity = await getTotalQuantity(cart_id);
+
+            // lấy số lượng của cart
+            let quantity = 0;
+            if (totalQuantity[0].sum != null) {
+                quantity = totalQuantity[0].sum;
+            }
+
+
             if (typeof(req.listUsers) == 'undefined') {
                 req.listUsers = Object(listUsers);
             }
 
-            const curUser = new User(res.locals.user.id, res.locals.user.name, '1', 4);
+            const curUser = new User(res.locals.user.id, res.locals.user.name, '1', quantity);
             if (req.listUsers.isExist(curUser.userID) === false) {
-                req.listUsers.addUser(curUser)
-            }
+                req.listUsers.addUser(curUser);
+            };
+
+            res.locals.user.quantity = quantity;
         });
+
+
         next();
 
     }

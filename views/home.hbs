@@ -1,5 +1,7 @@
 <div id="modal-mgs">
 </div>
+<div id="toast-msg"></div>
+
 <div class="container">
     <section class="section-carousel">
         <div class="carousel">
@@ -131,3 +133,11 @@
         </div>
     </section>
 </div>
+
+{{#compareString success "ordersuccess" }} 
+<script >
+    window.addEventListener("load",  function() {
+        showSuccessToast("Đặt hàng thành công");
+    }); 
+</script> 
+{{/compareString}}

@@ -16,6 +16,7 @@ const checkValidation = (obj, preValue, quantity) => {
     const displayPrice = parentElm.querySelector("#display-price");
     const pricePerItem = parentElm.querySelector('#price-value').value;
 
+
     if (parseInt(obj.value) > parseInt(obj.max)) {
 
         showErrorModal("Số lượng lớn hơn số lượng đang có sẵn");

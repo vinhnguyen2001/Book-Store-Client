@@ -10,8 +10,10 @@ const paymentRoute = require("./payment");
 const accountRoute = require("./account");
 const subjectRoute = require("./subject");
 
+const { authenToken, authenTokenResApi, checkCurrentUser, checkUserIsLogin } = require("../middlewares/authentication.MW");
 
 
+router.use("*", checkCurrentUser);
 // /homepage
 router.use("/", siteRoute);
 

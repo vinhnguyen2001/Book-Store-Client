@@ -5,9 +5,6 @@ var times = 0;
 
 const provincesHTML = document.querySelector(".form-province");
 
-const btnPayment = document.querySelector("#btn-payment");
-
-
 window.addEventListener("load", () => {
     const loadData = async() => {
 

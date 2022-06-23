@@ -1,6 +1,8 @@
 const addItem = async(obj) => {
     const parentElement = obj.parentNode;
     const idBook = parentElement.querySelector(".product_id").innerText;
+    const cartAmount = document.querySelector("#cart-amount");
+    console.log("cart: ", cartAmount);
 
     const hostOrigin = window.location.origin;
     const pathname = window.location.pathname;
@@ -24,11 +26,13 @@ const addItem = async(obj) => {
         if (status == 'success') {
             var url = window.location.href;
             url = `${url}`;
-
-            showSuccessModalForBuying("Thêm vào giỏ hàng thành công ", "true");
+            cartAmount.innerText = parseInt(cartAmount.innerText) + 1;
+            return showSuccessModalForBuying("Thêm vào giỏ hàng thành công ", "true");
+        } else if (status == "outofproduct") {
+            return showErrorModal("Sản phẩm đã hết hàng");
         } else {
             if (status == 'no-access-token') {
-                showErrorModal("Bạn chưa đăng nhập");
+                return showErrorModal("Bạn chưa đăng nhập");
             }
         }
 

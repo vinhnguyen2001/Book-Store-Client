@@ -17,13 +17,19 @@ router.get("/", async(req, res) => {
 
     try {
         const { error } = req.query;
+        if (!res.locals.user) {
+            return res.redirect("/auth/login");
+        }
         const account_id = res.locals.user.id;
         let totalPrice = 0;
         const user = await getAccountById(account_id);
 
-        const cart_id = await getCart(account_id);;
+        const cart_id = await getCart(account_id);
         const data = await getCartContentByIdCart(cart_id);
 
+        if (data.length == 0) {
+            return res.redirect("/homepage");
+        }
 
         for (item of data) {
             item["prevprice"] = item.price;

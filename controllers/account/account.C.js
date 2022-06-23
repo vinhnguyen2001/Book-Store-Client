@@ -12,7 +12,7 @@ class accountControllers {
         const { update } = req.query;
         try {
             if (!res.locals.user) {
-                res.redirect("/auth/login");
+                return res.redirect("/auth/login");
             }
             const accountID = res.locals.user.id;
 
@@ -41,7 +41,7 @@ class accountControllers {
         try {
 
             const { firstname, lastname, phone, address, district, ward, province } = req.body;
-            console.log("req.body", req.body);
+            // console.log("req.body", req.body);
             if (!res.locals.user) {
                 return res.redirect("/auth/login");
             }
