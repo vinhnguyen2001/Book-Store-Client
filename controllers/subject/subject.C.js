@@ -5,7 +5,6 @@ const { getProdbyIDSubject } = require("../../models/product/products.M");
 const { getFiveProducts, showingPrice, getDetailInforProduct, getProductsByName } = require("../../models/product/products.M")
 
 
-
 class SubjectControllers {
 
 
@@ -80,9 +79,7 @@ class SubjectControllers {
         }
 
         res.status(200).json({ data: packs, total_page, id_subject: id, name_subject: subject });
-
     }
-
 }
 
 

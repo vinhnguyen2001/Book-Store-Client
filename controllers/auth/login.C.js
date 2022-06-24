@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const { phoneIsExist, addNewAccount } = require("../../models/account/account.M");
 
 
+
 const createJWToken = (id, name, role) => {
     // thêm id_user và role_id vào trong token
     const data = {
@@ -83,8 +84,6 @@ router.post('/', async(req, res) => {
             throw Error("Mật khẩu không được để trống");
         }
 
-        // console.log(userData)
-
         // check mật khẩu đúng hay sai.
         const isPwd = await bcrypt.compare(passvalue, userData[0].pwd);
         if (!isPwd) {
@@ -100,7 +99,6 @@ router.post('/', async(req, res) => {
         res.status(200).json({ status: 'success', role: userData[0].role_id });
 
     } catch (e) {
-        // console.log("error: ", e)
         const errs = handleError(e);
         res.status(400).json(errs);
     }

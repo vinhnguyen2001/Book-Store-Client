@@ -56,7 +56,7 @@ window.onload = () => {
                     ${commentList.innerHTML}
                     `;
                 inputCmt.value = "";
-                showSuccessToast(`Chúng tôi đã ghi nhận lại bình luận của bạn !`)
+                showSuccessToast(`Chúng tôi đã ghi lại bình luận của bạn !`)
             }
 
             // console.log("status", status);

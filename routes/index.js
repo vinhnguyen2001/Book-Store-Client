@@ -13,11 +13,11 @@ const subjectRoute = require("./subject");
 const { authenToken, authenTokenResApi, checkCurrentUser, checkUserIsLogin } = require("../middlewares/authentication.MW");
 
 
+// all-route
 router.use("*", checkCurrentUser);
-// /homepage
-router.use("/", siteRoute);
 
-// /shopping-cart
+// homepage
+router.use("/", siteRoute);
 router.use("/shopping-cart", cartRoute);
 router.use("/list-order", orderRoute);
 router.use("/auth", authRoute);
