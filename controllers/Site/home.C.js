@@ -89,7 +89,7 @@ class HomeControllers {
                 flag = 0;
             }
 
-            for (elm of data) {
+            for (let elm of data) {
                 elm.price = showingPrice(elm.price);
             }
             res.render("search/search", {
@@ -118,7 +118,7 @@ class HomeControllers {
             const data = await getProductsByName({ search: search, price: strQueryPrice, filter: strQueryFilter });
 
             if (data.length > 0) {
-                for (elm of data) {
+                for (let elm of data) {
                     elm.price = showingPrice(elm.price);
                 }
             }

@@ -57,7 +57,7 @@ exports.updateItemsInCartContent = async(cart_id, product_id, new_quantity) => {
 
 exports.updateCartContent = async(strQuery) => {
 
-    console.log("strquery: ", strQuery);
+    // console.log("strquery: ", strQuery);
     const { rows } = await db.query(`${strQuery}`);
 
     return rows;
