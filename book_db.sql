@@ -35,7 +35,7 @@ drop table if exists products cascade;
 create table products (
 	product_id	serial,
 	product_name	varchar(255),
-	description		varchar(255),
+	description		varchar(1000),
 	category_id		serial,
 	author_id		serial,
 	publisher_id		serial,
@@ -60,7 +60,7 @@ drop table if exists images cascade;
 create table images (
 	image_id	int,
 	product_id	serial,
-	image_link varchar(500),
+	image_link varchar(1000),
 	primary key(image_id, product_id),
 	
 	constraint fk_image_product
@@ -190,32 +190,69 @@ create table order_content (
 
 -- Dữ liệu mẫu tạm
 insert into categories(category_name) values
-('Truyện tranh'), ('Truyện ngắn - Tản văn'), ('Sách giáo khoa'), ('Kinh tế'), ('Tâm lý - Kỹ năng sống');
+('Truyện tranh'), ('Truyện ngắn - Tản văn'), ('Sách giáo khoa'), ('Ngôn tình'),
+('Bài học kinh doanh'), ('Quản trị - lãnh đạo'), ('Martketing - Bán hàng'), ('Phân tích kinh tế'),
+('Kỹ năng sống'), ('Rèn luyện nhân cách'), ('Tâm lí'), ('Sách cho tuổi mới lớn');
 
 insert into authors(author_name) values
-('Nhiều tác giả'), ('Tác giả truyện tranh 1'), ('Tác giả truyện ngắn 1'), ('Tác giả kinh tế 1'), ('Tác giả tâm lý 1');
+('Gosho Aoyama'), ('Yoshito Usui'), ('Fujiko F Fujio'), ('Eiichiro Oda'), ('Masashi Kishimoto'), ('Akira Toriyama'), ('Gege Akutami') ,('Tatsuya Endo'), ('Kohei Horikoshi'), ('Riichiro Inagaki'),
+('Nguyễn Nhật Ánh'), ('Nam Cao'), ('Nguyễn Ngọc Tư'), ('Writinman'), ('Nguyễn Hưng'),
+('Bộ Giáo Dục Và Đào Tạo');
 
 insert into publishers(publisher_name) values
-('Nhà xuất bản Giáo dục'), ('Nhà xuất bản Kim Đồng'), ('Nhà xuất bản Trẻ'), ('Nhà xuất bản tổng hợp HCM');
+('NXB Giáo dục Việt Nam'), ('NXB Kim Đồng'), ('NXB Trẻ'), ('NXB Văn học'), ('NXB Dân Trí'), ('NXB tổng hợp HCM');
 
 insert into products(product_name, description, category_id, author_id, publisher_id, price, stock, is_active) values
-('Truyện tranh 1', 'Mô tả truyện tranh 1', 1, 2, 2, 20000, 99, 1), ('Truyện tranh 2', 'Mô tả truyện tranh 2', 1, 2, 2, 40000, 199, 1),
-('Truyện ngắn 1', 'Mô tả truyện ngắn 1', 2, 3, 3, 60000, 199, 1), ('Truyện ngắn 2', 'Mô tả truyện ngắn 2', 2, 3, 3, 80000, 99, 1),
-('Sách kinh tế 1', 'Có làm thì mới có ăn. Không làm mà đòi ăn thì ăn đồng bằng, ăn cỏ.', 4, 4, 4, 50000, 99, 1), ('Sách kinh tế 2', 'Ngã ở đâu gấp đôi ở đó', 4, 4, 4, 120000, 199, 1),
-('Sách giáo khoa 1', 'Mô tả giáo khoa 1', 3, 1, 1, 10000, 199, 1), ('Sách giáo khoa 2', 'Mô tả giáo khoa 2', 3, 1, 1, 20000, 99, 1),
-('Sách tâm lý 1', 'Mô tả tâm lý 1', 5, 5, 4, 90000, 99, 1), ('Sách tâm lý 2', 'Mô tả tâm lý 2', 5, 5, 4, 80000, 199, 1);
+('Thám Tử Lừng Danh Conan - Tập 96', 'Thuộc bộ tuyện Thám Tử Lừng Danh Conan ', 1, 1, 2, 20000, 200, 1),
+('Shin - Cậu Bé Bút Chì - Đặc Biệt Tập 7', 'Thuộc bộ truyện Shin - Cậu Bé Bút Chì', 1, 2, 2, 19000, 200, 1),
+('Fujiko F Fujio Đại Tuyển Tập - Doraemon Truyện Ngắn - Tập 15', 'Thuộc bộ truyện Doraemon', 1, 3, 2, 136000, 200, 1),
+('One Piece - Tập 90: Thánh Địa Mary Geoise', 'Thuộc bộ truyện One Piece', 1, 4, 2, 25000, 200, 1),
+('Naruto - Tập 61: Huynh Đệ Song Thủ!!', 'Thuộc bộ truyện Naruto', 1, 5, 2, 25000, 200, 1),
+('Dragon Ball Full Color - Phần Năm: Truy Lùng Cell Bọ Hung - Tập 1', 'Thuộc bộ truyện Gragon Ball', 1, 6, 2, 77000, 200, 1),
+('Chú Thuật Hồi Chiến - Tập 4', 'Thuộc bộ truyện Chú Thuật Hồi Chiến', 1, 7, 2, 30000, 200, 1),
+('Spy X Family - Tập 7', 'Thuộc bộ truyện Spy X Family', 1, 8, 2, 25000, 200, 1),
+('My Hero Academia - Học Viện Siêu Anh Hùng - Tập 29: Bakugo Katsuki: Trỗi Dậy', 'Thuộc bộ truyện My Hero Academia', 1, 9, 2, 25000, 200, 1),
+('Dr.STONE - Tập 19: Thành Phố Ngô 1 Triệu Dân', 'Thuộc bộ truyện Dr.STONE', 1, 10, 2, 25000, 200, 1),
+('Út Quyên Và Tôi', 'Tập truyện ngắn với 12 câu chuyện là 12 niềm vui, 12 kỉ niệm dễ thương, 12 bài học giản dị mà sâu sắc… Gặp trong tập truyện này những hình ảnh rất dễ thương, những lời thoại rất học trò…', 2, 11, 3, 45000, 200, 1),
+('Chí Phèo', 'Chí Phèo là một truyện ngắn nổi tiếng của nhà văn Nam Cao viết vào tháng 2 năm 1941. Chí Phèo là một tác phẩm xuất sắc, thể hiện nghệ thuật viết truyện độc đáo của Nam Cao, đồng thời là một tấn bi kịch của một người nông dân nghèo bị tha hóa trong xã hội. Hiện nay, truyện đã được đưa vào sách giáo khoa Ngữ Văn 11, tập 1. Chí Phèo cũng là tên nhân vật chính của truyện.', 2, 12, 4, 45000, 200, 1),
+('Không Ai Qua Sông', 'Viết về người nông dân miền Tây Nam Bộ.', 2, 13, 3, 100000, 200, 1),
+('Trưởng Thành Là Khi Nỗi Buồn Cũng Có Deadline', 'Ngày trước cứ nghĩ rằng lớn lên sẽ thích lắm, muốn làm gì cũng được, không ai quản. Đúng là như vậy, nhưng cái giá phải trả chính là sự cô đơn.
+Ngày trước lúc còn vô tư, thơ ngây luôn mộng tưởng cuộc sống trải đầy hoa hồng nhưng những điều hoa mỹ đó đều được sách vở “mài giũa” một cách khéo léo.
+Ngày trước có thể tuỳ hứng, thích thì làm không thích thì bỏ đi. Nhưng bây giờ, mệt cũng phải gắng gượng hoàn thành cho hết công việc, thất tình cũng không thể bỏ cả thế giới lại sau lưng.', 2, 14, 4, 88000, 200, 1),
+('Ếch Ộp - Tuyển Tập Truyện Siêu Ngắn', '- “Người yêu cũ là gì?”
+Là Vitamin A. Bởi vì các loại quả chứa Vitamin A đều giúp chúng ta sáng mắt ra.', 2, 15, 5, 89000, 200, 1),
+('Sách Giáo Khoa Bộ Lớp 11 - Sách Bài Học (Bộ 14 Cuốn)', '', 3, 16, 1, 169000, 200, 1),
+('Sách Giáo Khoa Bộ Lớp 12 - Sách Bài Học (Bộ 14 Cuốn)', '', 3, 16, 1, 180000, 200, 1);
 
 insert into images values--(product_id, image_link) values
-(1, 1, 'https://cdn0.fahasa.com/media/catalog/product/c/o/conan-hoat-hinh-mau---ke-hanh-phap-zero-tap-2.jpg'),
-(1, 2, 'https://cdn0.fahasa.com/media/catalog/product/b/a/bai-tho-tinh-tham-do-2.jpg'),
-(1, 3, 'https://cdn0.fahasa.com/media/catalog/product/c/o/combo0808195.jpg'),
-(1, 4, 'https://cdn0.fahasa.com/media/catalog/product/6/0/600boxset-vang-am-ap---kho-sach-10x14.5cm.jpg'),
-(1, 5, 'https://cdn0.fahasa.com/media/catalog/product/n/x/nxbtre_full_09462021_024609.jpg'),
-(1, 6, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_195509_1_10704.jpg'),
-(1, 7, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_233238.jpg'),
-(1, 8, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_233261.jpg'),
-(1, 9, 'https://cdn0.fahasa.com/media/catalog/product/p/h/ph_c-h_a-ch_n-dung-k_-ph_m-t_i.jpg'),
-(1, 10, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_208345.jpg');
+(1, 1, 'https://cdn0.fahasa.com/media/catalog/product/8/9/8935244835199.jpg'),
+(2, 1, 'https://cdn0.fahasa.com/media/flashmagazine/images/page_images/tham_tu_lung_danh_conan___tap_96/2021_07_29_16_27_07_2-390x510.jpg'),
+(3, 1, 'https://cdn0.fahasa.com/media/flashmagazine/images/page_images/tham_tu_lung_danh_conan___tap_96/2021_07_29_16_27_07_5-390x510.jpg'),
+(1, 2, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_223783.jpg'),
+(1, 3, 'https://cdn0.fahasa.com/media/catalog/product/d/o/doraemon-dai-tuyen-tap---truyen-ngan-tap-15.jpg'),
+(1, 4, 'https://cdn0.fahasa.com/media/catalog/product/8/9/8935244865981.jpg'),
+(1, 5, 'https://cdn0.fahasa.com/media/catalog/product/n/a/naruto---tap-61---tb-2022.jpg'),
+(1, 6, 'https://cdn0.fahasa.com/media/catalog/product/d/r/dragon-ball-color---phan-5-_-truy-lung-cell-bo-hung---tap-1_1.jpg'),
+(2, 6, 'https://cdn0.fahasa.com/media/catalog/product/t/r/truy_l_ng_cell_b_hung_-2.png'),
+(3, 6, 'https://cdn0.fahasa.com/media/catalog/product/t/r/truy_l_ng_cell_b_hung_-1.png'),
+(1, 7, 'https://cdn0.fahasa.com/media/catalog/product/c/h/chu_thuat_hoi_chien_-_tap_4_-_ta_se_diet_tru_nguoi_2.jpg'),
+(2, 7, 'https://cdn0.fahasa.com/media/catalog/product/6/0/600chu-thuat-4-mockup-ban-thuong.jpg'),
+(3, 7, 'https://cdn0.fahasa.com/media/catalog/product/c/h/chu_thuat_hoi_chien_-_tap_4_-_ta_se_diet_tru_nguoi_-_the_bo_goc.jpg'),
+(1, 8, 'https://cdn0.fahasa.com/media/catalog/product/s/p/spy_-_family_-_tap_7_b_a_1__1.jpg'),
+(1, 9, 'https://cdn0.fahasa.com/media/catalog/product/h/o/hoc-vien-sieu-anh-hung---tap-29---troi-day_1.jpg'),
+(2, 9, 'https://cdn0.fahasa.com/media/catalog/product/h/o/hoc_vien_sieu_anh_hung_-_tap_29_-_troi_day_-_bookmark.jpg'),
+(1, 10, 'https://cdn0.fahasa.com/media/catalog/product/d/r/dr.stone---tap-19---thanh-pho-ngo-1-trieu-dan.jpg'),
+(1, 11, 'https://cdn0.fahasa.com/media/catalog/product/c/o/copy_21_nxbtrestoryfull_04112014_021101.jpg'),
+(2, 11, 'https://cdn0.fahasa.com/media/flashmagazine/images/page_images/ut_quyen_va_toi_tai_ban_2019/2020_04_28_15_26_53_2-390x510.JPG'),
+(3, 11, 'https://cdn0.fahasa.com/media/flashmagazine/images/page_images/ut_quyen_va_toi_tai_ban_2019/2020_04_28_15_26_53_12-390x510.JPG'),
+(1, 12, 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_193731.jpg'),
+(2, 12, 'https://cdn0.fahasa.com/media/catalog/product/c/h/chi_pheo_2017_10_2018_07_25_09_10_41.JPG'),
+(1, 13, 'https://cdn0.fahasa.com/media/catalog/product/2/a/2a8ab322619f760d26b7ff0e2fa63f1f.jpg'),
+(1, 14, 'https://cdn0.fahasa.com/media/catalog/product/t/r/truong-thanh-la-khi-noi-buon-cung-co-deadline-_ntv_-_1_.jpg'),
+(2, 14, 'https://cdn0.fahasa.com/media/catalog/product/b/i/bia_truong-thanh-la-khi-noi-buon-cung-co-deadline-_ntv_-_2_.jpg'),
+(1, 15, 'https://cdn0.fahasa.com/media/catalog/product/3/3/3300000015408-1.jpg'),
+(1, 16, 'https://cdn0.fahasa.com/media/catalog/product/3/3/3300000015422-1.jpg');
+
 
 insert into accounts(username, pwd, firstname, lastname, phone, address, ward, district, province, role_id, account_status) values
 ('admin', '12345678', 'Tên', 'Chủ shop', '0123456789', 'Không', 'Không', 'Không', 'Không', 1, 1),
